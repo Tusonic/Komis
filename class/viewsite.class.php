@@ -8,7 +8,7 @@ class viewsite extends database  {
     public $_adminstrator = 3;
 
 
-    public function starthead()
+    public function StartHead()
     {
         echo'
                 <!doctype html>
@@ -34,7 +34,7 @@ class viewsite extends database  {
 
     }
 
-    public function login()
+    public function Login()
     {
 
 
@@ -76,22 +76,8 @@ class viewsite extends database  {
             $_SESSION['skrzynia'] = $row['skrzynia'];
             $_SESSION['linkotomoto'] = $row['linkotomoto'];
             $_SESSION['linkolx'] = $row['linkolx'];
+            $_SESSION['waznosc'] = $row['waznosc'];
 
-            /*
-            echo $_SESSION['tablecar'];
-            echo $_SESSION['lokalizacja'];
-            echo $_SESSION['marka'];
-            echo $_SESSION['model'];
-            echo $_SESSION['cenaod'];
-            echo $_SESSION['cenado'];
-
-            echo $row['tablecar'];
-            echo $row['tablecar'];
-            echo $row['marka'];
-            echo $row['model'];
-            echo $row['cenaod'];
-            echo $row['cenado'];
-            */
 
         }
 
@@ -199,6 +185,7 @@ class viewsite extends database  {
                     $_SESSION['skrzynia'] = $row['skrzynia'];
                     $_SESSION['linkotomoto'] = $row['linkotomoto'];
                     $_SESSION['linkolx'] = $row['linkolx'];
+                    $_SESSION['waznosc'] = $row['waznosc'];
                     // odswiezenie statystyk koniec
 
                     echo '
@@ -219,25 +206,25 @@ class viewsite extends database  {
              if ($_SESSION['flag'] == 0)
              {
                  echo '
-            <p><a class="btn btn-success btn-lg btn-block" href="car/options.php" role="button">Analizator &raquo;</a></p>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/options.php" role="button">Ustawienia &raquo;</a></p>
                 ';
              }
              else
              {
                  echo '
-            <p><a class="btn btn-warning btn-lg btn-block" href="car/options.php" role="button">Analizator &raquo;</a></p>
+            <p><a class="btn btn-warning btn-lg btn-block" href="car/options.php" role="button">Ustawienia &raquo;</a></p>
                 ';
              }
 
             echo '
-            <p><a class="btn btn-success btn-lg btn-block" href="car/info.php" role="button" aria-disabled="true">Informacje &raquo;</a></p>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/info.php" role="button" aria-disabled="true">Analizator &raquo;</a></p>
         </div>
         
     
         <div class="col-md-4">
             <h2><p class="text-center">INFORMACJA</p></h2></br>
             <p class="text-center">LOGIN: <b>'. $_SESSION['login'] .'</b></p>
-            <p class="text-center">KONTO WAŻNE DO: </b>'. $_SESSION['login'] .'</b></p>
+            <p class="text-center">KONTO WAŻNE DO: <b>'. $_SESSION['waznosc'] .'</b></p>
             <p class="text-center">PRAWA DOSTĘPU: <b>TESTER</b></p>
             <p class="text-center">KONTO: <b>DARMOWE</b></p>
         </div>
@@ -300,28 +287,28 @@ class viewsite extends database  {
             <p><a class="btn btn-success btn-lg btn-block" href="car/view.php" role="button">Widok &raquo;</a></p><br>
             
             ';
-             if ($_SESSION['flag'] == 0)
-             {
-                 echo '
-            <p><a class="btn btn-success btn-lg btn-block" href="car/options.php" role="button">Analizator &raquo;</a></p>
+                    if ($_SESSION['flag'] == 0)
+                    {
+                        echo '
+            <p><a class="btn btn-success btn-lg btn-block" href="car/options.php" role="button">Ustawienia &raquo;</a></p>
                 ';
-             }
-             else
-             {
-                 echo '
-            <p><a class="btn btn-warning btn-lg btn-block" href="car/options.php" role="button">Analizator &raquo;</a></p>
+                    }
+                    else
+                    {
+                        echo '
+            <p><a class="btn btn-warning btn-lg btn-block" href="car/options.php" role="button">Ustawienia &raquo;</a></p>
                 ';
-             }
+                    }
 
-            echo '
-            <p><a class="btn btn-success btn-lg btn-block" href="car/info.php" role="button" aria-disabled="true">Informacje &raquo;</a></p>
+                    echo '
+            <p><a class="btn btn-success btn-lg btn-block" href="car/info.php" role="button" aria-disabled="true">Analizator &raquo;</a></p>
         </div>
         
     
         <div class="col-md-4">
             <h2><p class="text-center">INFORMACJA</p></h2></br>
             <p class="text-center">LOGIN: <b>'. $_SESSION['login'] .'</b></p>
-            <p class="text-center">KONTO WAŻNE DO: </b>'. $_SESSION['login'] .'</b></p>
+            <p class="text-center">KONTO WAŻNE DO: <b>'. $_SESSION['waznosc'] .'</b></p>
             <p class="text-center">PRAWA DOSTĘPU: <b>UŻYTKOWNIK</b></p>
             <p class="text-center">KONTO: <b>PŁATNE</b></p>
         </div>
@@ -365,6 +352,7 @@ class viewsite extends database  {
                     $_SESSION['skrzynia'] = $row['skrzynia'];
                     $_SESSION['linkotomoto'] = $row['linkotomoto'];
                     $_SESSION['linkolx'] = $row['linkolx'];
+                    $_SESSION['waznosc'] = $row['waznosc'];
                     // odswiezenie statystyk koniec
 
 
@@ -396,7 +384,7 @@ class viewsite extends database  {
         <h2><p class="text-center">KONTO</p></h2>
         <p><a class="btn btn-info btn-lg btn-block" href="logout.php" role="button">Wyloguj &raquo;</a></p>
         <br>
-        <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button" aria-disabled="true">Ustawienia &raquo;</a></p>
+        <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button" aria-disabled="true">Statystki &raquo;</a></p>
         <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button" aria-disabled="true">Faktury &raquo;</a></p>
       </div>
 </div>
@@ -462,7 +450,7 @@ class viewsite extends database  {
 
     } //end function
 
-    public function endhead()
+    public function EndHead()
     {
 
         echo'
@@ -494,25 +482,9 @@ class viewsite extends database  {
 
 
     }
-/*
-    public function setlogin($loginid)
-    {
-        if($this->_login === null)
-        {
-            $this->_login = $loginid;
-        }
-
-    }
 
 
-    public function getlogin()
-    {
-        echo '</br> getloginid function = '.$this->_login;
-    }
-
-    */
-
-    public function backmenu()
+    public function BackMenu()
     {
 
         echo '</br>
@@ -539,7 +511,7 @@ class viewsite extends database  {
 
     }
 
-    public function error()
+    public function Error()
     {
         echo'
                 <!doctype html>

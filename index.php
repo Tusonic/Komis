@@ -6,31 +6,30 @@ ob_start();
 session_start();
 
 $site = new viewsite();
+$information = new information();
 
-// START CODE CHECK LOG_IN
-/*
-    if (isset($_SESSION['login_in'])) {
-        if ($_SESSION['login_in'] == 1) {
-            $set_login = 1;
-            $site->setlogin($set_login);
-            echo '($_SESSION[login_in] = 1)';
-        } else {
-            $set_login = 0;
-            $site->setlogin($set_login);
-            echo '($_SESSION[login_in] = 0)';
-        }
+if (isset($_SESSION['access'])) {
+    if ($_SESSION['flag'] == '0') {
+        $site->StartHead();
+        $site->Login();
+        $site->EndHead();
+    } elseif ($_SESSION['flag'] == '2') {
+        $site->StartHead();
+        $site->Login();
+        $information->StartUserMenu();
+        $site->EndHead();
+    } else {
+        $site->StartHead();
+        $site->Login();
+        $site->EndHead();
     }
-    else {
-        $set_login = 0;
-        $site->setlogin($set_login);
-    }
-*/
-// END CODE CHECK LOG_IN
+}
+else{
+    $site->StartHead();
+    $site->Login();
+    $site->EndHead();
+}
 
 
-$site->starthead();
-$site->login();
-
-$site->endhead();
 ob_end_flush();
 ?>

@@ -8,27 +8,31 @@ session_start();
 
 $site = new viewsite();
 $car = new car();
+$information = new information();
 
 if (isset($_SESSION['access'])) {
     if ($_SESSION['access'] >= 1) {
-
         if ($_SESSION['flag'] == 0) {
-            $site->starthead();
-            $site->backmenu();
-            $car->carchange();
-            $site->endhead();
+            $site->StartHead();
+            $site->BackMenu();
+            $car->CarChange();
+            $site->EndHead();
+        } elseif ($_SESSION['flag'] == 1) {
+            $site->StartHead();
+            $site->BackMenu();
+            $information->WaitChange();
+            $site->EndHead();
+        } elseif ($_SESSION['flag'] == 2) {
+            $site->StartHead();
+            $site->BackMenu();
+            $car->CarChange();
+            $site->EndHead();
         } else {
-            $site->starthead();
-            $site->backmenu();
-            $car->waitchange();
-            $site->endhead();
+            $site->Error();
         }
     } else {
-        $site->error();
+        $site->Error();
     }
-} else {
-    $site->error();
 }
-
 ob_end_flush();
 ?>

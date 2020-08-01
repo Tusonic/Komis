@@ -29,7 +29,7 @@ class car extends database
     }
 
 
-    public function deletedata()
+    public function DeleteData()
     {
         $tablecar = $_SESSION['tablecar'];
         $sta = $this->pdo->prepare("TRUNCATE TABLE $tablecar ");
@@ -61,11 +61,11 @@ class car extends database
 
     }
 
-    public function info()
+    public function Info()
     {
         echo '</br>
             <div class="row">
-                
+
                 <div class="col-md-4">
                   <p><a class="btn btn-success btn-lg btn-block" href="downloaddata.php" role="button">Pobierz baze &raquo;</a></p>
                   <p><a class="btn btn-success btn-lg btn-block" href="deletedata.php" role="button">Usuń baze &raquo;</a></p>
@@ -88,77 +88,22 @@ class car extends database
 
     }
 
-    public function waitchange()
-    {
-        echo '
-            </br>
-            <div class="row">
-            
-                <div class="col-md-3">
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="alert alert-warning text-center" role="alert">
-                        <h4 class="alert-heading">Aktualizowanie</h4>
-                             <p class="text-center">Aktualizowanie systemu analizowania w toku!</p>
-                             <p><a class="btn btn-warning btn-lg btn-block" href="../index.php" role="button">OK &raquo;</a></p>
-                     </div>
-                </div>
-                    
-                <div class="col-md-3">
-                    
-                </div>
-            
-            </div>
-            ';
-
-    }
-
-    public function waitchange2()
-    {
-        echo '
     
-        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-               <strong>Analizator </strong>aktualizuje nowo wprowadzone dane! </br>
-               Poniżej znajdują się stare dane z analizy, które automatycznie 
-                zostanie wyczyszczona po aktualizacji systemu.
-                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-        </div>
-        
-        
-        ';
-    }
 
-    public function carchange()
+    public function CarChange()
     {
-
-        echo $_POST['marka'];
-        echo '<br>';
-        echo $_POST['model'];
-        echo '<br>cena od:';
-        echo $_POST['cenaod'];
-        echo '<br>';
-        echo $_POST['cenado'];
-        echo '<br>';
-        echo $_POST['rokod'];
-        echo '<br>';
-        echo $_POST['rokdo'];
-        echo '<br>';
-        echo $_POST['stantechniczny'];
-        echo '<br>';
-        echo $_POST['skrzynia'];
-        echo '<br>';
-        echo $_POST['dystans'];
-        echo '<br>';
-        echo $_POST['login'];
-
 
         $change = $this->pdo->prepare("UPDATE user SET flag = '1', model = :model, marka = :marka, cenaod = :cenaod, cenado = :cenado, rokod = :rokod, rokdo = :rokdo, stantechniczny = :stantechniczny, skrzynia = :skrzynia, paliwo = :paliwo, lokalizacja = :lokalizacja, dystans = :dystans  WHERE login = :login ");
         $change->bindValue(':login', $_SESSION['login'], PDO::PARAM_STR);
-        $change->bindValue(':model', $_POST['model'], PDO::PARAM_STR);
+
+        if ($_POST['marka'] == null) { $change->bindValue(':marka', $_SESSION['marka'], PDO::PARAM_STR); }
+        else { $change->bindValue(':marka', $_POST['marka'], PDO::PARAM_STR); }
+
+        if ($_POST['model'] == null) { $change->bindValue(':model', $_SESSION['model'], PDO::PARAM_STR); }
+        else { $change->bindValue(':model', $_POST['model'], PDO::PARAM_STR); }
+
         $change->bindValue(':marka', $_POST['marka'], PDO::PARAM_STR);
+        $change->bindValue(':model', $_POST['model'], PDO::PARAM_STR);
         $change->bindValue(':cenaod', $_POST['cenaod'], PDO::PARAM_STR);
         $change->bindValue(':cenado', $_POST['cenado'], PDO::PARAM_STR);
         $change->bindValue(':rokod', $_POST['rokod'], PDO::PARAM_STR);
@@ -169,20 +114,7 @@ class car extends database
         $change->bindValue(':lokalizacja', $_POST['lokalizacja'], PDO::PARAM_STR);
         $change->bindValue(':dystans', $_POST['dystans'], PDO::PARAM_STR);
         $change->execute();
-        /*
-
-        DO ZROBIENIA - + ECHO -----> UPDATE user SET pass='111' WHERE id = '1'
-        ukryty parametr do ustawienia w funkcji nizej
-
-
-        $editorBelt = $this->pdo->prepare("UPDATE client SET id = :id, name = :name, adres = :adres, note = :note WHERE client.id = :id");
-        $editorBelt->bindValue(':id', $clientid, PDO::PARAM_INT);
-        $editorBelt->bindValue(':name', $clientname, PDO::PARAM_INT);
-        $editorBelt->bindValue(':adres', $clientadres, PDO::PARAM_INT);
-        $editorBelt->bindValue(':note', $clientnote, PDO::PARAM_STR);
-        $editorBelt->execute();
-        */
-
+ 
         echo '
             </br>
             <div class="row">
@@ -204,9 +136,32 @@ class car extends database
             
             </div>
             ';
+
+        // odswiezenie statystyk
+        $loadinguser = $this->pdo->prepare("select * from user WHERE login = '{$_SESSION['login']}' ");
+        $loadinguser->execute();
+        $row = $loadinguser->fetch(PDO::FETCH_ASSOC);
+
+        $_SESSION['flag'] = $row['flag'];
+        $_SESSION['tablecar'] = $row['tablecar'];
+        $_SESSION['lokalizacja'] = $row['lokalizacja'];
+        $_SESSION['dystans'] = $row['dystans'];
+        $_SESSION['marka'] = $row['marka'];
+        $_SESSION['model'] = $row['model'];
+        $_SESSION['cenaod'] = $row['cenaod'];
+        $_SESSION['cenado'] = $row['cenado'];
+        $_SESSION['rokod'] = $row['rokod'];
+        $_SESSION['rokdo'] = $row['rokdo'];
+        $_SESSION['paliwo'] = $row['paliwo'];
+        $_SESSION['stantechniczny'] = $row['stantechniczny'];
+        $_SESSION['skrzynia'] = $row['skrzynia'];
+        $_SESSION['linkotomoto'] = $row['linkotomoto'];
+        $_SESSION['linkolx'] = $row['linkolx'];
+        $_SESSION['waznosc'] = $row['waznosc'];
+        // odswiezenie statystyk koniec
     }
 
-    public function changeoptions()
+    public function ChangeOptions()
     {
         echo '
 
@@ -214,6 +169,9 @@ class car extends database
          <div class="col-md-3"> </div>   
          
          <div class="col-md-6">
+         
+         <h2><p class="text-center">USTAWIENIA</p></h2>
+         
          
         <table id="table" class="table table-striped table-bordered"  width="100%" cellspacing="0"> 
                  <thead>
@@ -233,13 +191,13 @@ class car extends database
                   </tr>
                   
                   <tr>
-                  <td>Model:</td>
-                  <td><input  name="model" class="form-control" type="text"  value="' . $_SESSION['model'] . '" placeholder=" ' . $_SESSION['model'] . ' "></td>
+                  <td>Marka:</td>
+                  <td><input  name="marka" class="form-control" type="text"  value="' . $_SESSION['marka'] .'" placeholder=" ' . $_SESSION['marka'] . ' "></td>
                   </tr>
                   
                   <tr>
-                  <td>Marka:</td>
-                  <td><input  name="marka" class="form-control" type="text"  value="' . $_SESSION['marka'] . '" placeholder=" ' . $_SESSION['marka'] . ' "></td>
+                  <td>Model:</td>
+                  <td><input  name="model" class="form-control" type="text"  value="" placeholder=" ' . $_SESSION['model'] . ' "></td>
                   </tr>
                   
                   <tr>
@@ -260,6 +218,16 @@ class car extends database
                   <tr>
                   <td>Rok do:</td>
                   <td><input  name="rokdo" class="form-control" type="text"  value="' . $_SESSION['rokdo'] . '" placeholder=" ' . $_SESSION['rokdo'] . ' "></td>
+                  </tr>
+                  
+                  <tr>
+                  <td>Lokalizacja:</td>
+                  <td><input  name="lokalizacja" class="form-control" type="text"  value="' . $_SESSION['lokalizacja'] . '" placeholder=" ' . $_SESSION['lokalizacja'] . ' "> </td>
+                  </tr>
+                  
+                  <tr>
+                  <td>W promieniu (kilometry):</td>
+                  <td><input  name="dystans" class="form-control" type="text"  value="' . $_SESSION['dystans'] . '" placeholder=" ' . $_SESSION['dystans'] . ' "></td>
                   </tr>
                   
                   ';
@@ -391,8 +359,6 @@ class car extends database
                      ';
                     
                   }
-      
-                 
 
               // KONIEC blok sprawdzajacy status stantechniczny
       
@@ -549,9 +515,9 @@ class car extends database
                       </label>
                       </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paliwo" value="Benzyna+LPG">
+                      <input class="form-check-input" type="radio" name="paliwo" value="LPG">
                       <label class="form-check-label" for="paliwo">
-                        LPG
+                        Benzyna + LPG
                       </label>
                       </div>
                    <div class="form-check">
@@ -585,9 +551,9 @@ class car extends database
                       </label>
                       </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paliwo" value="Benzyna+LPG">
+                      <input class="form-check-input" type="radio" name="paliwo" value="LPG">
                       <label class="form-check-label" for="paliwo">
-                        LPG
+                        Benzyna + LPG
                       </label>
                       </div>
                    <div class="form-check">
@@ -621,9 +587,9 @@ class car extends database
                       </label>
                       </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paliwo" value="Benzyna+LPG" checked>
+                      <input class="form-check-input" type="radio" name="paliwo" value="LPG" checked>
                       <label class="form-check-label" for="paliwo">
-                        LPG
+                        Benzyna + LPG
                       </label>
                       </div>
                    <div class="form-check">
@@ -657,9 +623,9 @@ class car extends database
                       </label>
                       </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paliwo" value="Benzyna+LPG">
+                      <input class="form-check-input" type="radio" name="paliwo" value="LPG">
                       <label class="form-check-label" for="paliwo">
-                        LPG
+                        Benzyna + LPG
                       </label>
                       </div>
                    <div class="form-check">
@@ -693,9 +659,9 @@ class car extends database
                       </label>
                       </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paliwo" value="Benzyna+LPG">
+                      <input class="form-check-input" type="radio" name="paliwo" value="LPG">
                       <label class="form-check-label" for="paliwo">
-                        LPG
+                        Benzyna + LPG
                       </label>
                       </div>
                    <div class="form-check">
@@ -708,33 +674,12 @@ class car extends database
                       ';
               }
       
-      
-      
-      
-      
-      
+
                   echo '
 
                   </td>
                   </tr>
-                  
-                  <tr>
-                  <td>Lokalizacja:</td>
-                  <td><input  name="lokalizacja" class="form-control" type="text"  value="' . $_SESSION['lokalizacja'] . '" placeholder=" ' . $_SESSION['lokalizacja'] . ' ">
-                 
-                  </td>
-                  </tr>
-                  
-                  <tr>
-                  <td>W promieniu (kilometry):</td>
-                  <td>
-                  <input  name="dystans" class="form-control" type="text"  value="' . $_SESSION['dystans'] . '" placeholder=" ' . $_SESSION['dystans'] . ' ">
-                  
-                  </td>
-                  </tr>
-                  
-                  
-                
+
                 </tbody>
                 </table>
                 
@@ -752,7 +697,7 @@ class car extends database
 
     }
 
-    public function viewoptions()
+    public function ViewOptions()
     {
 
         echo '
@@ -786,7 +731,7 @@ class car extends database
         ';
     }
 
-    public function carload($flag, $tablecar, $lokalizacja, $dystans, $marka, $model, $cenaod, $cenado, $rokod, $rokdo, $paliwo, $stantechniczny, $skrzynia, $linkotomoto, $linkolx)
+    public function CarLoad($flag, $tablecar, $lokalizacja, $dystans, $marka, $model, $cenaod, $cenado, $rokod, $rokdo, $paliwo, $stantechniczny, $skrzynia, $linkotomoto, $linkolx)
     {
 
 
@@ -819,64 +764,10 @@ class car extends database
                 $stmt->closeCursor();
             }
         }
-        // ENGINE END
-        /*
-                // ENGINE START
-                foreach($html2->find('a[class="marginright5 link linkWithHash detailsLink"]') as $element)
-                {
-                    echo $element->href . '<br>';
-
-                    $link = $element->href;
-                    $carload = $this->pdo->prepare("SELECT link FROM car WHERE link = '$link' ");
-                    $carload->execute();
-                    $row = $carload->rowCount();
-
-
-                    if ($row>0) {
-                        echo" Link - - - ". $link . " </br>";
-                    }
-                    else
-                    {
-
-                        $stmt = $this->pdo->prepare('INSERT INTO car (link) VALUE (:link) ');
-
-                        $stmt->bindValue(':link', $element->href, PDO::PARAM_STR);
-                        $stmt->execute();
-                        $stmt->closeCursor();
-                    }
-                }
-                // ENGINE END
-
-                // ENGINE START
-                foreach($html3->find('a[class="marginright5 link linkWithHash detailsLinkPromoted"]') as $element)
-                {
-                    echo $element->href . '<br>';
-
-                    $link = $element->href;
-                    $carload = $this->pdo->prepare("SELECT link FROM car WHERE link = '$link' ");
-                    $carload->execute();
-                    $row = $carload->rowCount();
-
-
-                    if ($row>0) {
-                        echo" Link - - - ". $link . " </br>";
-                    }
-                    else
-                    {
-
-                        $stmt = $this->pdo->prepare('INSERT INTO car (link) VALUE (:link) ');
-
-                        $stmt->bindValue(':link', $element->href, PDO::PARAM_STR);
-                        $stmt->execute();
-                        $stmt->closeCursor();
-                    }
-                }
-                // ENGINE END
-
-        */
+      
     }
 
-    public function view($tablecar)
+    public function View($tablecar)
 
     {
 
@@ -887,6 +778,7 @@ class car extends database
 
 
         echo ' 
+ <h2><p class="text-center">WIDOK</p></h2>
  
  <script>
  $.extend( true, $.fn.dataTable.defaults, {

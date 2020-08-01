@@ -8,8 +8,8 @@ session_start();
 // sekcja 1 - cron // 
 $car = 'car';
 $cron = new cron();
-$cron->cron1otomoto(1,$car);
-$cron->cron1olx(1,$car);
-$cron->cron1olxpremium(1,$car)
+$cron->CronOtomoto(1,$car);
+$cron->CronOlx(1,$car);
+$cron->CronOlxPremium(1,$car)
 
     ?>

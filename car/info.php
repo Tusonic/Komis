@@ -1,35 +1,46 @@
 <?php
+
 require_once '../config/loader.php';
 spl_autoload_register('loader::loaderDir');
 
 ob_start();
 session_start();
 
-
 $site = new viewsite();
 $car = new car();
-
+$information = new information();
 
 if (isset($_SESSION['access'])) {
     if ($_SESSION['access'] >= 1) {
         if ($_SESSION['flag'] == 0) {
-            $site->starthead();
-            $site->backmenu();
-            $car->viewoptions();
-            $car->info();
-            $site->endhead();
+            $site->StartHead();
+            $site->BackMenu();
+            $car->ViewOptions();
+            $car->Info();
+            $site->EndHead();
+        } elseif ($_SESSION['flag'] == 1) {
+            $site->StartHead();
+            $site->BackMenu();
+            $information->WaitChange();
+            $site->EndHead();
+        }  elseif ($_SESSION['flag'] == 2) {
+            $site->StartHead();
+            $site->BackMenu();
+            $information->StartUserMenu();
+            $site->EndHead();
         } else {
-            $site->starthead();
-            $site->backmenu();
-            $car->waitchange();
-            $site->endhead();
+            $site->StartHead();
+            $site->BackMenu();
+            $car->ViewOptions();
+            $car->Info();
+            $site->EndHead();
         }
     } else {
-        $site->error();
+        $site->Error();
     }
 
 } else {
-    $site->error();
+    $site->Error();
 }
 
 

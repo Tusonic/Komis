@@ -3,31 +3,10 @@
 class admin extends database
 {
 
-    public function caruserchange()
+    public function CarUserChange()
     {
-
-        echo $_POST['marka'];
-        echo '<br>';
-        echo $_POST['model'];
-        echo '<br>cena od:';
-        echo $_POST['cenaod'];
-        echo '<br>';
-        echo $_POST['cenado'];
-        echo '<br>';
-        echo $_POST['rokod'];
-        echo '<br>';
-        echo $_POST['rokdo'];
-        echo '<br>';
-        echo $_POST['stantechniczny'];
-        echo '<br>';
-        echo $_POST['skrzynia'];
-        echo '<br>';
-        echo $_POST['dystans'];
-        echo '<br>';
-       // echo $_POST['login'];
-
-        /*
-                $change = $this->pdo->prepare("UPDATE user SET flag = '0', model = :model, marka = :marka, cenaod = :cenaod, cenado = :cenado, rokod = :rokod, rokdo = :rokdo, stantechniczny = :stantechniczny, skrzynia = :skrzynia, paliwo = :paliwo, lokalizacja = :lokalizacja, dystans = :dystans  WHERE id = :id ");
+                
+                $change = $this->pdo->prepare("UPDATE user SET flag = '0', model = :model, marka = :marka, cenaod = :cenaod, cenado = :cenado, rokod = :rokod, rokdo = :rokdo, stantechniczny = :stantechniczny, skrzynia = :skrzynia, paliwo = :paliwo, lokalizacja = :lokalizacja, dystans = :dystans, linkotomoto = :linkotomoto, linkolx = :linkolx  WHERE id = :id ");
                 $change->bindValue(':id', $_POST['id'], PDO::PARAM_STR);
                 $change->bindValue(':model', $_POST['model'], PDO::PARAM_STR);
                 $change->bindValue(':marka', $_POST['marka'], PDO::PARAM_STR);
@@ -40,20 +19,9 @@ class admin extends database
                 $change->bindValue(':paliwo', $_POST['paliwo'], PDO::PARAM_STR);
                 $change->bindValue(':lokalizacja', $_POST['lokalizacja'], PDO::PARAM_STR);
                 $change->bindValue(':dystans', $_POST['dystans'], PDO::PARAM_STR);
+                $change->bindValue(':linkotomoto', $_POST['linkotomoto'], PDO::PARAM_STR);
+                $change->bindValue(':linkolx', $_POST['linkolx'], PDO::PARAM_STR);
                 $change->execute();
-
-
-                DO ZROBIENIA - + ECHO -----> UPDATE user SET pass='111' WHERE id = '1'
-                ukryty parametr do ustawienia w funkcji nizej
-
-
-                $editorBelt = $this->pdo->prepare("UPDATE client SET id = :id, name = :name, adres = :adres, note = :note WHERE client.id = :id");
-                $editorBelt->bindValue(':id', $clientid, PDO::PARAM_INT);
-                $editorBelt->bindValue(':name', $clientname, PDO::PARAM_INT);
-                $editorBelt->bindValue(':adres', $clientadres, PDO::PARAM_INT);
-                $editorBelt->bindValue(':note', $clientnote, PDO::PARAM_STR);
-                $editorBelt->execute();
-                */
 
         echo '
             </br>
@@ -78,7 +46,7 @@ class admin extends database
             ';
     }
 
-    public function viewUser()
+    public function ViewUser()
     {
         $ViewUser = $this->pdo->prepare('select * from user ORDER BY id DESC');
         $ViewUser->execute();
@@ -130,14 +98,34 @@ $(document).ready(function() {
             $stantechniczny = $row['stantechniczny'];
             $skrzynia = $row['skrzynia'];
 
-
             echo '
                 <tr>
                             <th scope="row">' . $row['id'] . '</th>
                             <td>' . $row['login'] . '</td>
                             <td>' . $row['pass'] . '</td>
-                            <td> { data waznosci } </td>
-                            <td> { konto aktywne } </td>
+                            <td>' . $row['waznosc'] . '</td>
+                            <td>
+                            ';
+                                    if ($row['flag'] == 3) {
+                                        echo '
+                                   <button type="button" class="btn btn-sm btn-warning" disabled>Waiting</button>
+                                        ';
+                                    }
+                                    elseif ($row['blocked'] == 1)
+                                    {
+                                        echo '
+                                   <button type="button" class="btn btn-sm btn-primary" disabled>Zablokowane</button>
+                                        ';
+
+                                    } else {
+                                        echo '
+                                   <button type="button" class="btn btn-sm btn-success" disabled>Aktywne</button>
+                                        ';
+
+                                    }
+
+                                  echo '
+                            </td>
                             <td>
                             ';
                                     if ($row['flag'] == 0) {
@@ -175,7 +163,7 @@ $(document).ready(function() {
         }
 
 
-    public function changeUser()
+    public function ChangeUser()
     {
         $ChangeUser = $this->pdo->prepare('select * from user WHERE id = :id');
         $ChangeUser->bindValue(':id', $_POST['id'], PDO::PARAM_STR);
@@ -589,9 +577,9 @@ $(document).ready(function() {
                       </label>
                       </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paliwo" value="Benzyna+LPG">
+                      <input class="form-check-input" type="radio" name="paliwo" value="LPG">
                       <label class="form-check-label" for="paliwo">
-                        LPG
+                        Benzyna+LPG
                       </label>
                       </div>
                    <div class="form-check">
@@ -625,9 +613,9 @@ $(document).ready(function() {
                       </label>
                       </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paliwo" value="Benzyna+LPG">
+                      <input class="form-check-input" type="radio" name="paliwo" value="LPG">
                       <label class="form-check-label" for="paliwo">
-                        LPG
+                        Benzyna+LPG
                       </label>
                       </div>
                    <div class="form-check">
@@ -661,9 +649,9 @@ $(document).ready(function() {
                       </label>
                       </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paliwo" value="Benzyna+LPG" checked>
+                      <input class="form-check-input" type="radio" name="paliwo" value="LPG" checked>
                       <label class="form-check-label" for="paliwo">
-                        LPG
+                        Benzyna+LPG
                       </label>
                       </div>
                    <div class="form-check">
@@ -697,9 +685,9 @@ $(document).ready(function() {
                       </label>
                       </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paliwo" value="Benzyna+LPG">
+                      <input class="form-check-input" type="radio" name="paliwo" value="LPG">
                       <label class="form-check-label" for="paliwo">
-                        LPG
+                        Benzyna+LPG
                       </label>
                       </div>
                    <div class="form-check">
@@ -733,9 +721,9 @@ $(document).ready(function() {
                       </label>
                       </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paliwo" value="Benzyna+LPG">
+                      <input class="form-check-input" type="radio" name="paliwo" value="LPG">
                       <label class="form-check-label" for="paliwo">
-                        LPG
+                        Benzyna+LPG
                       </label>
                       </div>
                    <div class="form-check">
@@ -748,11 +736,7 @@ $(document).ready(function() {
                       ';
               }
       
-      
-      
-      
-      
-      
+
                   echo '
 
                   </td>
