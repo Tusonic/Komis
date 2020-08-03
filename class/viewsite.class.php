@@ -200,19 +200,19 @@ class viewsite extends database  {
         <div class="col-md-4">
             <h2><p class="text-center">KOMIS</p></h2>
             <p></p>
-            <p><a class="btn btn-success btn-lg btn-block" href="car/view.php" role="button">Widok &raquo;</a></p><br>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/view.php" role="button">Oferty &raquo;</a></p><br>
             
             ';
              if ($_SESSION['flag'] == 0)
              {
                  echo '
-            <p><a class="btn btn-success btn-lg btn-block" href="car/options.php" role="button">Ustawienia &raquo;</a></p>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/options.php" role="button">Parametry &raquo;</a></p>
                 ';
              }
              else
              {
                  echo '
-            <p><a class="btn btn-warning btn-lg btn-block" href="car/options.php" role="button">Ustawienia &raquo;</a></p>
+            <p><a class="btn btn-warning btn-lg btn-block" href="car/options.php" role="button">Parametry &raquo;</a></p>
                 ';
              }
 
@@ -237,6 +237,32 @@ class viewsite extends database  {
             <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button" aria-disabled="true">Płatności &raquo;</a></p>
         </div>
         
+        </div>
+        
+        ';
+
+                    if ($_SESSION['flag'] == 2) {
+
+                        echo '
+                
+                        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+               Witam w analizatorze ofert samochodowych, jest to twoje pierwsze wejście, aby analizator mógł </br>
+               analizować rynek samochodowy nie zbędne są mu dane, które musisz wprowadzić. </br>
+               <hr>
+               <strong>Proszę kliknij w przycisk PARAMETRY i wprowadz dane.</strong>
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div> ';
+                    }
+                    else
+                    {
+
+                    }
+
+
+          echo'       
+       
     </div>
 
        ';
@@ -284,19 +310,19 @@ class viewsite extends database  {
         <div class="col-md-4">
             <h2><p class="text-center">KOMIS</p></h2>
             <p></p>
-            <p><a class="btn btn-success btn-lg btn-block" href="car/view.php" role="button">Widok &raquo;</a></p><br>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/view.php" role="button">Oferty &raquo;</a></p><br>
             
             ';
                     if ($_SESSION['flag'] == 0)
                     {
                         echo '
-            <p><a class="btn btn-success btn-lg btn-block" href="car/options.php" role="button">Ustawienia &raquo;</a></p>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/options.php" role="button">Parametry &raquo;</a></p>
                 ';
                     }
                     else
                     {
                         echo '
-            <p><a class="btn btn-warning btn-lg btn-block" href="car/options.php" role="button">Ustawienia &raquo;</a></p>
+            <p><a class="btn btn-warning btn-lg btn-block" href="car/options.php" role="button">Parametry &raquo;</a></p>
                 ';
                     }
 

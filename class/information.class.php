@@ -58,7 +58,7 @@ class information extends database
                Witam w analizatorze ofert samochodowych, jest to twoje pierwsze wejście, aby analizator mógł </br>
                analizować rynek samochodowy nie zbędne są mu dane, które musisz wprowadzić. </br>
                <hr>
-               <strong>Proszę kliknij w przycisk USTAWIENIA i wprowadz dane.</strong>
+               <strong>Proszę kliknij w przycisk PARAMETRY i wprowadz dane.</strong>
                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -68,7 +68,7 @@ class information extends database
         ';
     }
 
-    public function StartUserMenu()
+    public function AnalizatorStartUserMenu()
     {
         echo '
     

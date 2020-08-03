@@ -67,8 +67,8 @@ class car extends database
             <div class="row">
 
                 <div class="col-md-4">
-                  <p><a class="btn btn-success btn-lg btn-block" href="downloaddata.php" role="button">Pobierz baze &raquo;</a></p>
-                  <p><a class="btn btn-success btn-lg btn-block" href="deletedata.php" role="button">Usuń baze &raquo;</a></p>
+                  <p><a class="btn btn-success btn-lg btn-block" href="downloaddata.php" role="button">Pobierz bazę &raquo;</a></p>
+                  <p><a class="btn btn-success btn-lg btn-block" href="deletedata.php" role="button">Usuń bazę &raquo;</a></p>
                 </div>
                 
                 <div class="col-md-4">
@@ -78,7 +78,7 @@ class car extends database
                 
                 <div class="col-md-4">
                   <p><a class="btn btn-success btn-lg btn-block" href="options.php" role="button">Zmiana parametrów &raquo;</a></p>
-                  <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button">Wyłączenie analizatora &raquo;</a></p>
+                  <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button">Ulubione oferty &raquo;</a></p>
                 </div>
               
              </div>
@@ -731,50 +731,26 @@ class car extends database
         ';
     }
 
-    public function CarLoad($flag, $tablecar, $lokalizacja, $dystans, $marka, $model, $cenaod, $cenado, $rokod, $rokdo, $paliwo, $stantechniczny, $skrzynia, $linkotomoto, $linkolx)
-    {
 
-
-        // ENGINE START
-        error_reporting(E_ALL); //DOM error
-        include_once('../engine/simple_html_dom.php'); //DOM
-
-        $html = file_get_html($linkotomoto);
-        // $html = file_get_html('https://www.otomoto.pl/osobowe/slaskie/?search%5Bfilter_float_price%3Ato%5D=3000&search%5Bfilter_enum_no_accident%5D=1&search%5Border%5D=created_at_first%3Adesc&search%5Bbrand_program_id%5D%5B0%5D=&search%5Bcountry%5D=');
-        $html2 = file_get_html('https://www.olx.pl/motoryzacja/samochody/slaskie/?search%5Bfilter_float_price%3Ato%5D=3000&search%5Bfilter_enum_condition%5D%5B0%5D=notdamaged&search%5Border%5D=created_at%3Adesc');
-        $html3 = file_get_html('https://www.olx.pl/motoryzacja/samochody/slaskie/?search%5Bfilter_float_price%3Ato%5D=3000&search%5Bfilter_enum_condition%5D%5B0%5D=notdamaged&search%5Border%5D=created_at%3Adesc');
-
-        // ENGINE START
-        foreach ($html->find('a[class="offer-title__link"]') as $element) {
-            // echo $element->href . '<br>';
-
-            $link = $element->href;
-            $carload = $this->pdo->prepare("SELECT link FROM $tablecar WHERE link = '$link' ");
-            $carload->execute();
-            $row = $carload->rowCount();
-
-
-            if ($row > 0) {
-                //  echo" Link - - - ". $link . " </br>";
-            } else {
-
-                $stmt = $this->pdo->prepare("INSERT INTO $tablecar (link) VALUE (:link) ");
-                $stmt->bindValue(':link', $element->href, PDO::PARAM_STR);
-                $stmt->execute();
-                $stmt->closeCursor();
-            }
-        }
-      
-    }
 
     public function View($tablecar)
 
     {
 
+        if (isset($_POST['id'])){
+            $updateflagcar = $this->pdo->prepare("UPDATE $tablecar SET flag = '1' WHERE id = :id");
+            $updateflagcar->bindValue(':id', $_POST['id'], PDO::PARAM_STR);
+            $updateflagcar->execute();
+        }
+        else
+        {
+
+        }
 
         $viewCar = $this->pdo->prepare('select * from ' . $tablecar . ' ORDER BY id DESC');
         $viewCar->bindValue(':link', $tablecar);
         $viewCar->execute();
+
 
 
         echo ' 
@@ -799,8 +775,9 @@ $(document).ready(function() {
                        <tr> 
                              <th scope="col">#</th>
                              <th >Data</th>
+                             <th >Adres WWW</th>
                              <th >Link</th>
-                             <th ></th>
+                             <th> </th>
                         </tr>
                    </thead>
                 <tbody>               
@@ -810,6 +787,7 @@ $(document).ready(function() {
             $id = $row['id'];
             $time = $row['time'];
             $link = $row['link'];
+            $flag = $row['flag'];
 
 
             echo '
@@ -818,7 +796,23 @@ $(document).ready(function() {
                             <td>' . $time . '</td>
                             <td>' . $link . '</td>
                             <td> <a target="_blank" href="' . $link . '" class="btn btn-primary btn-sm" role="button" aria-pressed="true">LINK</a> </td>
+                            <td> 
+                            ';
+                                if($row['flag'] == '1')
+                                {
+                                    echo '<button type="button" class="btn btn-sm btn-success" disabled>Zaznacz</button> ';
+                                }
+                                else
+                                {
+                                    echo '
+                                    <form method="POST" action="view.php">
+                                    <input type="hidden" value="' . $row['id'] . '" name="id"/>
+                                    <input type="submit" class="btn btn-primary btn-sm" value="Zaznacz"/>
+                                    </form>
                                 ';
+                                }
+
+
 
             //CHECK AVALIBLE BELT
             /*    if ($available == 0) {

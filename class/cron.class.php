@@ -38,7 +38,7 @@ class cron extends database
 
     public function CronOlx($id,$tablecar)
     {
-        echo '</br> cron1olx </br>';
+        echo '</br> CronOlx </br>';
        
         error_reporting(E_ALL); //DOM error
         include_once('../engine/simple_html_dom.php'); //DOM
@@ -71,7 +71,7 @@ class cron extends database
   
    public function CronOlxPremium($id,$tablecar)
     {
-        echo '</br> cron1olxpremium </br>';
+        echo '</br> CronOlxPremium </br>';
        
         error_reporting(E_ALL); //DOM error
         include_once('../engine/simple_html_dom.php'); //DOM
