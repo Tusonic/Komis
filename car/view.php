@@ -1,5 +1,4 @@
 <?php
-
 require_once '../config/loader.php';
 spl_autoload_register('loader::loaderDir');
 
@@ -10,39 +9,46 @@ $site = new viewsite();
 $car = new car();
 $information = new information();
 
+
 if (isset($_SESSION['access'])) {
     if ($_SESSION['access'] >= 1) {
         if ($_SESSION['flag'] == 0) {
-            $site->StartHead();
-            $site->BackMenu();
+            $site->starthead();
+            $site->backmenu();
+            $car->viewoptions();
             $tablecar = $_SESSION['tablecar'];
-            $car->View($tablecar);
-            $site->EndHead();
-        } elseif ($_SESSION['flag'] == 1) {
-            $site->StartHead();
-            $site->BackMenu();
-            $information->WaitChange2();
-            $tablecar = $_SESSION['tablecar'];
-            $car->View($tablecar);
-            $site->EndHead();
-        } elseif ($_SESSION['flag'] == 2) {
-            $site->StartHead();
-            $site->BackMenu();
+            $car->view($tablecar);
+            $site->endhead();
+        } 
+      elseif ($_SESSION['flag'] == 2)
+      {
+            $site->starthead();
+            $site->backmenu();
             $information->StartUserMenu();
-            $site->EndHead();
-        } else  {
-            $site->StartHead();
-            $site->BackMenu();
-            $information->WaitChange2();
+            $site->endhead();
+      }
+       elseif ($_SESSION['flag'] == 1)
+      {
+            $site->starthead();
+            $site->backmenu();
+            $information->waitchange();
             $tablecar = $_SESSION['tablecar'];
-            $car->View($tablecar);
-            $site->EndHead();
+            $car->view($tablecar);
+            $site->endhead();
+      }
+      else {
+            $site->starthead();
+            $site->backmenu();
+            $information->waitchange();
+            $tablecar = $_SESSION['tablecar'];
+            $car->view($tablecar);
+            $site->endhead();
         }
     } else {
-        $site->Error();
+        $site->error();
     }
 } else {
-    $site->Error();
+    $site->error();
 }
 
 

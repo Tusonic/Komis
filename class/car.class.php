@@ -643,7 +643,7 @@ class car extends database
                 {                       
                   echo'
 
-                    <tr>
+                     <tr>
                   <td>Paliwo:</td>
                   <td>
                    <div class="form-check">
@@ -654,7 +654,7 @@ class car extends database
                       </div>
                     <div class="form-check">
                       <input class="form-check-input" type="radio" name="paliwo" value="Benzyna">
-                      <label class="form-check-label" for="paliwo>
+                      <label class="form-check-label" for="paliwo">
                         Benzyna
                       </label>
                       </div>
@@ -670,6 +670,7 @@ class car extends database
                         Diesel
                       </label>
                       </div>
+                 
                       
                       ';
               }

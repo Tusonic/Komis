@@ -106,7 +106,7 @@ $(document).ready(function() {
                             <td>' . $row['waznosc'] . '</td>
                             <td>
                             ';
-                                    if ($row['flag'] == 3) {
+                                    if ($row['flag'] == 2) {
                                         echo '
                                    <button type="button" class="btn btn-sm btn-warning" disabled>Waiting</button>
                                         ';
@@ -432,7 +432,7 @@ $(document).ready(function() {
                      echo '
 
                      <tr>
-                  <td>Skrzyniay:</td>
+                  <td>Skrzynia:</td>
                   <td>
                    <div class="form-check">
                       <input class="form-check-input" type="radio" name="skrzynia" value="Wszystkie" checked >
@@ -463,7 +463,7 @@ $(document).ready(function() {
                      echo '
 
                      <tr>
-                  <td>Skrzyniay:</td>
+                  <td>Skrzynia:</td>
                   <td>
                    <div class="form-check">
                       <input class="form-check-input" type="radio" name="skrzynia" value="Wszystkie"  >
@@ -494,7 +494,7 @@ $(document).ready(function() {
                      echo '
 
                      <tr>
-                  <td>Skrzyniay:</td>
+                  <td>Skrzynia:</td>
                   <td>
                    <div class="form-check">
                       <input class="form-check-input" type="radio" name="skrzynia" value="Wszystkie" >
@@ -525,7 +525,7 @@ $(document).ready(function() {
                      echo '
 
                       <tr>
-                  <td>Skrzyniay:</td>
+                  <td>Skrzynia:</td>
                   <td>
                    <div class="form-check">
                       <input class="form-check-input" type="radio" name="skrzynia" value="Wszystkie">

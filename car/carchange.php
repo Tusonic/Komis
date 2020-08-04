@@ -12,27 +12,34 @@ $information = new information();
 
 if (isset($_SESSION['access'])) {
     if ($_SESSION['access'] >= 1) {
-        if ($_SESSION['flag'] == 0) {
-            $site->StartHead();
-            $site->BackMenu();
-            $car->CarChange();
-            $site->EndHead();
-        } elseif ($_SESSION['flag'] == 1) {
-            $site->StartHead();
-            $site->BackMenu();
-            $information->WaitChange();
-            $site->EndHead();
-        } elseif ($_SESSION['flag'] == 2) {
-            $site->StartHead();
-            $site->BackMenu();
-            $car->CarChange();
-            $site->EndHead();
-        } else {
-            $site->Error();
+
+        if ($_SESSION['flag'] == 0) 
+        {
+            $site->starthead();
+            $site->backmenu();
+            $car->carchange();
+            $site->endhead();
+        }
+        elseif ($_SESSION['flag'] == 2) 
+        {
+            $site->starthead();
+            $site->backmenu();
+            $car->carchange();
+            $site->endhead();
+        } 
+        else
+        {
+            $site->starthead();
+            $site->backmenu();
+            $information->waitchange();
+            $site->endhead();
         }
     } else {
-        $site->Error();
+        $site->error();
     }
+} else {
+    $site->error();
 }
+
 ob_end_flush();
 ?>
