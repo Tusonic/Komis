@@ -16,7 +16,7 @@ if (isset($_SESSION['access'])) {
     } elseif ($_SESSION['flag'] == '2') {
         $site->StartHead();
         $site->Login();
-       // $information->StartUserMenu();
+        $information->StartUserMenu();
         $site->EndHead();
     } else {
         $site->StartHead();

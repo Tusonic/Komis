@@ -755,7 +755,7 @@ class car extends database
 
 
         echo ' 
- <h2><p class="text-center">WIDOK</p></h2>
+ <h2><p class="text-center">OFERTY</p></h2>
  
  <script>
  $.extend( true, $.fn.dataTable.defaults, {

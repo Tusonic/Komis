@@ -1,0 +1,5 @@
+    public $server = '192.168.101.134';
+    public $username = 'kazik123_komis';
+    public $password = 'kazik123_komis';
+    public $database = 'kazik123_komis';
+    public $pdo;

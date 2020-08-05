@@ -10,6 +10,6 @@ session_unset();
 session_destroy();
 
 
-header('Location: http://127.0.0.1');
+header('Location: http://beta.komis.info.pl');
 exit;
 

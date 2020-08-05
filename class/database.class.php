@@ -1,10 +1,10 @@
 <?php
 class database
 {
-    public $server = '127.0.0.1';
-    public $username = 'komis';
-    public $password = 'komis';
-    public $database = 'komis';
+    public $server = '192.168.101.134';
+    public $username = 'kazik123_komis';
+    public $password = 'kazik123_komis';
+    public $database = 'kazik123_komis';
     public $pdo;
 
     public function __construct()

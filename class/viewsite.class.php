@@ -239,6 +239,7 @@ class viewsite extends database  {
         
         </div>
         
+        
         ';
 
                     if ($_SESSION['flag'] == 2) {

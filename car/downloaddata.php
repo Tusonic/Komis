@@ -17,7 +17,7 @@ if (isset($_SESSION['access'])) {
         if ($_SESSION['flag'] == 0) {
             $site->starthead();
             $site->backmenu();
-            $car->EXPORT_DATABASE('127.0.0.1','komis','komis','komis',array('car'),false);
+            $car->EXPORT_DATABASE('192.168.101.134','kazik123_komis','kazik123_komis','kazik123_komis',array($_SESSION['tablecar']),false);
             $site->endhead();
         } else {
             $site->starthead();

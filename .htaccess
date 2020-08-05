@@ -1,0 +1,8 @@
+Header set Strict-Transport-Security "max-age=31536000" env=HTTPS
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www.komis.info.pl(.*) [NC]
+RewriteRule ^(.*)$ https://komis.info.pl/$1 [R=301,L]
+
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
