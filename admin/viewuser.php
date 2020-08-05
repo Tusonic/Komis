@@ -15,8 +15,7 @@ if (isset($_SESSION['access'])) {
 
         $site->starthead();
         $site->backmenu();
-        $cpu->cpulogic();
-        $admin->viewUser();
+        $admin->ViewUserOptions();
         $site->endhead();
 
     }

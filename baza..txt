@@ -3,3 +3,11 @@
     public $password = 'kazik123_komis';
     public $database = 'kazik123_komis';
     public $pdo;
+
+
+
+    public $server = '127.0.0.1';
+    public $username = 'komis';
+    public $password = 'komis';
+    public $database = 'komis';
+    public $pdo;

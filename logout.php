@@ -10,6 +10,6 @@ session_unset();
 session_destroy();
 
 
-header('Location: http://beta.komis.info.pl');
+header('Location: https://komis.info.pl');
 exit;
 

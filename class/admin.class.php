@@ -3,6 +3,7 @@
 class admin extends database
 {
 
+
     public function CarUserChange()
     {
                 
@@ -74,6 +75,8 @@ $(document).ready(function() {
                              <th >Login</th>
                              <th >Hasło</th>
                              <th >Ważność</th>
+                             <th >CPU</th>
+                             <th >Status</th>
                              <th >Konto</th>
                              <th >Flag</th>
                              
@@ -104,22 +107,72 @@ $(document).ready(function() {
                             <td>' . $row['login'] . '</td>
                             <td>' . $row['pass'] . '</td>
                             <td>' . $row['waznosc'] . '</td>
+                            <td>';
+                            $rowcounttable = $row['tablecar'];
+                         //   echo $rowcounttable;
+                            $CcountTable = $this->pdo->prepare("SELECT COUNT(*) FROM $rowcounttable ");
+                            $CcountTable->execute();
+                            $rowcount = $CcountTable->fetchColumn();
+                            $cpu = $rowcount * 0.1;
+                            echo $cpu;
+                            echo '%';
+
+
+
+
+                echo '</td>
+                            <td>  
+                             ';
+
+                                if ($row['statuslink'] == 4)
+                                  {
+                                     echo '
+                                     <button type="button" class="btn btn-sm btn-success btn-block" disabled>ANALIZA</button>
+                                         ';
+                                  }
+                                  elseif ($row['statuslink'] == 3)
+                                  {
+                                      echo '
+                                    <button type="button" class="btn btn-sm btn-danger btn-block" disabled>ERROR</button>
+                                            ';
+                                  }
+                                  elseif ($row['statuslink'] == 2)
+                                  {
+                                     echo '
+                                   <button type="button" class="btn btn-sm btn-warning btn-block" disabled>OLX</button>
+                                        ';
+                                  }
+                                  elseif ($row['statuslink'] == 1)
+                                  {
+                                        echo '
+                                       <button type="button" class="btn btn-sm btn-warning btn-block" disabled>OTOMOTO</button>
+                                            ';
+                                  }
+                                  else
+                                  {
+                                      echo '
+                                   <button type="button" class="btn btn-sm btn-light btn-block" disabled>Sprawdzam...</button>
+                                        ';
+                                  }
+
+
+                            echo' </td>
                             <td>
                             ';
                                     if ($row['flag'] == 2) {
                                         echo '
-                                   <button type="button" class="btn btn-sm btn-warning" disabled>Waiting</button>
+                                   <button type="button" class="btn btn-sm btn-light btn-block" disabled>Oczekuje...</button>
                                         ';
                                     }
                                     elseif ($row['blocked'] == 1)
                                     {
                                         echo '
-                                   <button type="button" class="btn btn-sm btn-primary" disabled>Zablokowane</button>
+                                   <button type="button" class="btn btn-sm btn-primary btn-block" disabled>Zablokowane</button>
                                         ';
 
                                     } else {
                                         echo '
-                                   <button type="button" class="btn btn-sm btn-success" disabled>Aktywne</button>
+                                   <button type="button" class="btn btn-sm btn-success btn-block" disabled>Aktywne</button>
                                         ';
 
                                     }
@@ -128,11 +181,21 @@ $(document).ready(function() {
                             </td>
                             <td>
                             ';
-                                    if ($row['flag'] == 0) {
+                                    if ($row['flag'] == 0)
+                                    {
                                         echo '
                                     <form method="POST" action="change.php">
                                     <input type="hidden" value="' . $row['id'] . '" name="id"/>
-                                    <input type="submit" class="btn btn-success btn-sm" value="OK"/>
+                                    <input type="submit" class="btn btn-success btn-sm btn-block" value="OK"/>
+                                    </form>
+                                        ';
+                                        }
+                                    elseif (($row['flag'] == 2) )
+                                    {
+                                      echo '
+                                    <form method="POST" action="change.php">
+                                    <input type="hidden" value="' . $row['id'] . '" name="id"/>
+                                    <input type="submit" class="btn btn-light btn-sm btn-block" value="Oczekuje..."/>
                                     </form>
                                         ';
                                     }
@@ -141,7 +204,7 @@ $(document).ready(function() {
                                         echo '
                                     <form method="POST" action="change.php">
                                     <input type="hidden" value="' . $row['id'] . '" name="id"/>
-                                    <input type="submit" class="btn btn-danger btn-sm" value="CHANGE"/>
+                                    <input type="submit" class="btn btn-danger btn-sm btn-block" value="CHANGE"/>
                                     </form>
                                         ';
 
@@ -149,18 +212,120 @@ $(document).ready(function() {
 
                                   echo '
                             </td>
+                            
 
                                 ';
 
 
         }
-            echo '</td>
+            echo '
                 </tr>  
                 </tbody>
                 </table>
                             ';
 
         }
+
+    public function ViewUserOptions()
+    {
+        $ViewUser = $this->pdo->prepare('select * from user WHERE flag = 1 ORDER BY id DESC');
+        $ViewUser->execute();
+
+        echo ' 
+ 
+ <script>
+ $.extend( true, $.fn.dataTable.defaults, {
+    "searching": false,
+    "ordering": false
+    
+} );
+ 
+ 
+$(document).ready(function() {
+    $(\'#viewtablenosort\').DataTable();
+} );
+</script>
+ 
+           
+            <table id="viewtablenosort" class="table table-striped table-bordered" width="100%" cellspacing="0"> 
+                 <thead>
+                       <tr> 
+                             <th scope="col">#</th>
+                             <th >Login</th>
+                             <th >Ważność</th>
+                             <th >Flag</th>
+                             
+                        </tr>
+                   </thead>
+                <tbody>               
+         ';
+
+        while ($row = $ViewUser->fetch(PDO::FETCH_ASSOC)) {
+            $id = $row['id'];
+            $login = $row['login'];
+            $pass = $row['pass'];
+            $flag = $row['flag'];
+            $marka = $row['marka'];
+            $model = $row['model'];
+            $cenaod = $row['cenaod'];
+            $cenado = $row['cenado'];
+            $rokod = $row['rokod'];
+            $rokdo = $row['rokdo'];
+            $paliwo = $row['paliwo'];
+            $stantechniczny = $row['stantechniczny'];
+            $skrzynia = $row['skrzynia'];
+
+            echo '
+                <tr>
+                            <th scope="row">' . $row['id'] . '</th>
+                            <td>' . $row['login'] . '</td>
+                            <td>' . $row['waznosc'] . '</td>
+                            <td>';
+
+            if ($row['flag'] == 0)
+            {
+                echo '
+                                    <form method="POST" action="change.php">
+                                    <input type="hidden" value="' . $row['id'] . '" name="id"/>
+                                    <input type="submit" class="btn btn-success btn-sm btn-block" value="OK"/>
+                                    </form>
+                                        ';
+            }
+            elseif (($row['flag'] == 2) )
+            {
+                echo '
+                                    <form method="POST" action="change.php">
+                                    <input type="hidden" value="' . $row['id'] . '" name="id"/>
+                                    <input type="submit" class="btn btn-light btn-sm btn-block" value="Oczekuje..."/>
+                                    </form>
+                                        ';
+            }
+            else
+            {
+                echo '
+                                    <form method="POST" action="change.php">
+                                    <input type="hidden" value="' . $row['id'] . '" name="id"/>
+                                    <input type="submit" class="btn btn-danger btn-sm btn-block" value="CHANGE"/>
+                                    </form>
+                                        ';
+
+            }
+
+            echo '
+                            </td>
+                            
+
+                                ';
+
+
+        }
+        echo '
+                </tr>  
+                </tbody>
+                </table>
+                            ';
+
+    }
 
 
     public function ChangeUser()

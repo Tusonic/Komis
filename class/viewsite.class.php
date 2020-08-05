@@ -200,7 +200,8 @@ class viewsite extends database  {
         <div class="col-md-4">
             <h2><p class="text-center">KOMIS</p></h2>
             <p></p>
-            <p><a class="btn btn-success btn-lg btn-block" href="car/view.php" role="button">Oferty &raquo;</a></p><br>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/view.php" role="button">Oferty &raquo;</a></p>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/viewfav.php" role="button">Ulubione &raquo;</a></p>
             
             ';
              if ($_SESSION['flag'] == 0)
@@ -242,7 +243,7 @@ class viewsite extends database  {
         
         ';
 
-                    if ($_SESSION['flag'] == 2) {
+                    /* if ($_SESSION['flag'] == 2) {
 
                         echo '
                 
@@ -260,6 +261,7 @@ class viewsite extends database  {
                     {
 
                     }
+                    */
 
 
           echo'       
@@ -311,7 +313,8 @@ class viewsite extends database  {
         <div class="col-md-4">
             <h2><p class="text-center">KOMIS</p></h2>
             <p></p>
-            <p><a class="btn btn-success btn-lg btn-block" href="car/view.php" role="button">Oferty &raquo;</a></p><br>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/view.php" role="button">Oferty &raquo;</a></p>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/viewfav.php" role="button">Ulubione &raquo;</a></p>
             
             ';
                     if ($_SESSION['flag'] == 0)
@@ -394,8 +397,8 @@ class viewsite extends database  {
     <div class="col-md-4">
         <h2><p class="text-center">ANALIZATOR</p></h2>
         <p></p>
-        <p><a class="btn btn-success btn-lg btn-block" href="admin\view.php" role="button">Widok &raquo;</a></p>
-        <br>
+        <p><a class="btn btn-success btn-lg btn-block" href="admin\view.php" role="button">Analizator &raquo;</a></p>
+        <p><a class="btn btn-success btn-lg btn-block" href="admin\viewuser.php" role="button">Widok &raquo;</a></p>
         <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button">Ustawienia&raquo;</a></p>
         <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button" aria-disabled="true">Zgłoszenia &raquo;</a></p>
 
