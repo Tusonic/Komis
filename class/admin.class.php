@@ -114,9 +114,16 @@ $(document).ready(function() {
                             $CcountTable->execute();
                             $rowcount = $CcountTable->fetchColumn();
                             $cpu = $rowcount * 0.1;
+          
+                            if ( $cpu > 100 )
+                            {
+                            echo '<button type="button" class="btn btn-sm btn-danger btn-block" disabled>'.$cpu.' % </button>';
+                            }
+                            else
+                            {
                             echo $cpu;
                             echo '%';
-
+                            }
 
 
 
@@ -127,7 +134,7 @@ $(document).ready(function() {
                                 if ($row['statuslink'] == 4)
                                   {
                                      echo '
-                                     <button type="button" class="btn btn-sm btn-success btn-block" disabled>ANALIZA</button>
+                                     <button type="button" class="btn btn-sm btn-success btn-block" disabled>Analizator</button>
                                          ';
                                   }
                                   elseif ($row['statuslink'] == 3)
@@ -909,16 +916,15 @@ $(document).ready(function() {
                   
                   <tr>
                   <td>Link otomoto:</td>
-                  <td><input  name="linkotomoto" class="form-control" type="text"  value="' . $row['linkotomoto'] . '" placeholder=" ' . $row['linkotomoto']. ' ">
-                 
+                  <td>
+                  <textarea name="linkotomoto" class="form-control" rows="3" value="' . $row['linkotomoto'] . '" placeholder=" ' . $row['linkotomoto'] . ' "></textarea>
                   </td>
                   </tr>
                   
                   <tr>
                   <td>Link olx:</td>
                   <td>
-                  <input  name="linkolx" class="form-control" type="text"  value="' . $row['linkolx'] . '" placeholder=" ' . $row['linkolx'] . ' ">
-                  
+                  <textarea name="linkolx" class="form-control" rows="3" value="' . $row['linkolx'] . '" placeholder=" ' . $row['linkolx'] . ' "></textarea>
                   </td>
                   </tr>
 
