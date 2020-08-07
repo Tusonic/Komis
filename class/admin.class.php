@@ -355,7 +355,7 @@ $(document).ready(function() {
     $(\'#viewtablenosort\').DataTable();
 } );
 </script>
- 
+
            
              <table id="table" class="table table-striped table-bordered"  width="100%" cellspacing="0"> 
                  <thead>
@@ -419,37 +419,37 @@ $(document).ready(function() {
                   
                   <tr>
                   <td>Marka:</td>
-                  <td><input  name="marka" class="form-control" type="text"  value="' . $row['marka'] . '" placeholder=" ' . $row['marka'] . ' "></td>
+                  <td><input  name="marka" class="form-control" type="text"  value="' . $row['marka'] . '"></td>
                   </tr>
                   
                   <tr>
                   <td>Model:</td>
-                  <td><input  name="model" class="form-control" type="text"  value="' . $row['model'] . '" placeholder=" ' . $row['model'] . ' "></td>
+                  <td><input  name="model" class="form-control" type="text"  value="' . $row['model'] . '"></td>
                   </tr>
                                                      
                   <tr>
                   <td>Cena od:</td>
-                  <td><input  name="cenaod" class="form-control" type="text"  value="' . $row['cenaod'] . '" placeholder=" ' . $row['cenaod'] . ' "></td>
+                  <td><input  name="cenaod" class="form-control" type="text"  value="' . $row['cenaod'] . '"></td>
                   </tr>
                   
                   <tr>
                   <td>Cena do:</td>
-                  <td><input  name="cenado" class="form-control" type="text"  value="' . $row['cenado'] . '" placeholder=" ' . $row['cenado'] . ' "></td>
+                  <td><input  name="cenado" class="form-control" type="text"  value="' . $row['cenado'] . '"></td>
                   </tr>
                   
                   <tr>
                   <td>Rok od:</td>
-                  <td><input  name="rokod" class="form-control" type="text"  value="' . $row['rokod'] . '" placeholder=" ' . $row['rokod'] . ' "></td>
+                  <td><input  name="rokod" class="form-control" type="text"  value="' . $row['rokod'] . '"></td>
                   </tr>
                   
                   <tr>
                   <td>Rok do:</td>
-                  <td><input  name="rokdo" class="form-control" type="text"  value="' . $row['rokdo'] . '" placeholder=" ' . $row['rokdo'] . ' "></td>
+                  <td><input  name="rokdo" class="form-control" type="text"  value="' . $row['rokdo'] . '"></td>
                   </tr>
                   
                   <tr>
                   <td>Lokalizacja:</td>
-                  <td><input  name="lokalizacja" class="form-control" type="text"  value="' . $row['lokalizacja'] . '" placeholder=" ' . $row['lokalizacja'] . ' ">
+                  <td><input  name="lokalizacja" class="form-control" type="text"  value="' . $row['lokalizacja'] . '">
                  
                   </td>
                   </tr>
@@ -457,7 +457,7 @@ $(document).ready(function() {
                   <tr>
                   <td>W promieniu (kilometry):</td>
                   <td>
-                  <input  name="dystans" class="form-control" type="text"  value="' . $row['dystans'] . '" placeholder=" ' . $row['dystans'] . ' ">
+                  <input  name="dystans" class="form-control" type="text"  value="' . $row['dystans'] . '">
                   
                   </td>
                   </tr>
@@ -917,21 +917,22 @@ $(document).ready(function() {
                   <tr>
                   <td>Link otomoto:</td>
                   <td>
-                  <textarea name="linkotomoto" class="form-control" rows="3" value="' . $row['linkotomoto'] . '" placeholder=" ' . $row['linkotomoto'] . ' "></textarea>
-                  </td>
-                  </tr>
-                  
-                  <tr>
-                  <td>Link olx:</td>
-                  <td>
-                  <textarea name="linkolx" class="form-control" rows="3" value="' . $row['linkolx'] . '" placeholder=" ' . $row['linkolx'] . ' "></textarea>
+                  <input  name="linkotomoto" class="form-control" type="text"  value="' . $row['linkotomoto'] . '">
                   </td>
                   </tr>
 
-                                
-          
+                  <tr>
+                  <td>Link olx:</td>
+                  <td>
+                  <input  name="linkolx" class="form-control" type="text"  value="' . $row['linkolx'] . '">
+                  </td>
+                  </tr>
+                  
+ 
            </tbody>
                 </table>
+                
+                 
                 
                  <div class="text-center">
                 <a class="btn btn-info " href="../index.php" role="button"><<< Anuluj</a> 
@@ -939,12 +940,56 @@ $(document).ready(function() {
              
                <input class="btn btn-lg btn-success" type="submit" value="Dalej >>>">
                 </div>
+               
                 
                  </form>  
                  
-                 ';
+                 </br>
+                 </br>
+                 <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">LINKI PODGLĄDOWE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td> OTOMOTO
+                                    <div class="input-group">
+                                     <div class="input-group-prepend">
+                                      <span class="input-group-text">Link:</span>
+                                    </div>
+                                     <textarea rows="10" class="form-control" aria-label="With textarea">' . $row['linkotomoto'] . '</textarea>
+                                    </div>
+                      </td>
+                      </tr>
+                      <tr>
+                      <td> OLX
+                      
+                                    <div class="input-group">
+                                     <div class="input-group-prepend">
+                                      <span class="input-group-text">Link:</span>
+                                    </div>
+                                     <textarea rows="10" class="form-control" aria-label="With textarea">' . $row['linkolx'] . '</textarea>
+                                    </div>
+                      
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                </br>
+                </br>
+                 
+                 
+               
+                 
+                 
+                 
+                ';
 
         }
+
+
 
 
      

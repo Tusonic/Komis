@@ -136,7 +136,7 @@ class car extends database
         $change = $this->pdo->prepare("UPDATE user SET flag = '1', model = :model, marka = :marka, cenaod = :cenaod, cenado = :cenado, rokod = :rokod, rokdo = :rokdo, stantechniczny = :stantechniczny, skrzynia = :skrzynia, paliwo = :paliwo, lokalizacja = :lokalizacja, dystans = :dystans  WHERE login = :login ");
         $change->bindValue(':login', $_SESSION['login'], PDO::PARAM_STR);
 
-        if ($_POST['marka'] == null) {
+       /* if ($_POST['marka'] == null) {
             $change->bindValue(':marka', $_SESSION['marka'], PDO::PARAM_STR);
         } else {
             $change->bindValue(':marka', $_POST['marka'], PDO::PARAM_STR);
@@ -147,6 +147,11 @@ class car extends database
         } else {
             $change->bindValue(':model', $_POST['model'], PDO::PARAM_STR);
         }
+
+       */
+
+        $change->bindValue(':marka', $_POST['marka'], PDO::PARAM_STR);
+        $change->bindValue(':model', $_POST['model'], PDO::PARAM_STR);
 
         $change->bindValue(':marka', $_POST['marka'], PDO::PARAM_STR);
         $change->bindValue(':model', $_POST['model'], PDO::PARAM_STR);
@@ -238,42 +243,42 @@ class car extends database
                   
                   <tr>
                   <td>Marka:</td>
-                  <td><input  name="marka" class="form-control" type="text"  value="' . $_SESSION['marka'] . '" placeholder=" ' . $_SESSION['marka'] . ' "></td>
+                  <td><input  name="marka" class="form-control" type="text"  value="' . $_SESSION['marka'] . '" ></td>
                   </tr>
                   
                   <tr>
                   <td>Model:</td>
-                  <td><input  name="model" class="form-control" type="text"  value="" placeholder=" ' . $_SESSION['model'] . ' "></td>
+                  <td><input  name="model" class="form-control" type="text"  value=" ' . $_SESSION['model'] . ' "></td>
                   </tr>
                   
                   <tr>
                   <td>Cena od:</td>
-                  <td><input  name="cenaod" class="form-control" type="text"  value="' . $_SESSION['cenaod'] . '" placeholder=" ' . $_SESSION['cenaod'] . ' "></td>
+                  <td><input  name="cenaod" class="form-control" type="text"  value="' . $_SESSION['cenaod'] . '" ></td>
                   </tr>
                   
                   <tr>
                   <td>Cena do:</td>
-                  <td><input  name="cenado" class="form-control" type="text"  value="' . $_SESSION['cenado'] . '" placeholder=" ' . $_SESSION['cenado'] . ' "></td>
+                  <td><input  name="cenado" class="form-control" type="text"  value="' . $_SESSION['cenado'] . '" ></td>
                   </tr>
                   
                   <tr>
                   <td>Rok od:</td>
-                  <td><input  name="rokod" class="form-control" type="text"  value="' . $_SESSION['rokod'] . '" placeholder=" ' . $_SESSION['rokod'] . ' "></td>
+                  <td><input  name="rokod" class="form-control" type="text"  value="' . $_SESSION['rokod'] . '" ></td>
                   </tr>
                   
                   <tr>
                   <td>Rok do:</td>
-                  <td><input  name="rokdo" class="form-control" type="text"  value="' . $_SESSION['rokdo'] . '" placeholder=" ' . $_SESSION['rokdo'] . ' "></td>
+                  <td><input  name="rokdo" class="form-control" type="text"  value="' . $_SESSION['rokdo'] . '" ></td>
                   </tr>
                   
                   <tr>
                   <td>Lokalizacja:</td>
-                  <td><input  name="lokalizacja" class="form-control" type="text"  value="' . $_SESSION['lokalizacja'] . '" placeholder=" ' . $_SESSION['lokalizacja'] . ' "> </td>
+                  <td><input  name="lokalizacja" class="form-control" type="text"  value="' . $_SESSION['lokalizacja'] . '" > </td>
                   </tr>
                   
                   <tr>
                   <td>W promieniu (kilometry):</td>
-                  <td><input  name="dystans" class="form-control" type="text"  value="' . $_SESSION['dystans'] . '" placeholder=" ' . $_SESSION['dystans'] . ' "></td>
+                  <td><input  name="dystans" class="form-control" type="text"  value="' . $_SESSION['dystans'] . '" ></td>
                   </tr>
                   
                   ';
