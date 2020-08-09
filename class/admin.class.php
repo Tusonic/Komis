@@ -4,6 +4,39 @@ class admin extends database
 {
 
 
+    public function CpuDown()
+    {
+
+       // echo $_POST['tablecar'];
+        $tablecar = $_POST['tablecar'];
+
+
+        $change = $this->pdo->prepare("DELETE FROM $tablecar ORDER BY id ASC LIMIT 65");
+        $change->execute();
+
+        echo '
+            </br>
+            <div class="row">
+            
+                <div class="col-md-3">
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="alert alert-success text-center" role="alert">
+                        <h4 class="alert-heading">System OK!</h4>
+                             <p class="text-center">CPU zostało obniżone!</p>
+                             <p><a class="btn btn-success btn-lg btn-block" href="../index.php" role="button">OK &raquo;</a></p>
+                     </div>
+                </div>
+                    
+                <div class="col-md-3">
+                    
+                </div>
+            
+            </div>
+            ';
+    }
+
     public function CarUserChange()
     {
                 
@@ -117,7 +150,21 @@ $(document).ready(function() {
           
                             if ( $cpu > 100 )
                             {
-                            echo '<button type="button" class="btn btn-sm btn-danger btn-block" disabled>'.$cpu.' % </button>';
+                            echo '
+                                <form method="POST" action="cpudown.php">
+                                <input type="hidden" value="' . $row['tablecar'] . '" name="tablecar"/>
+                                <input type="submit" class="btn btn-danger btn-sm" value="'.$cpu.'%"/>
+                                </form>';
+
+                            }
+                            elseif (($cpu > 70) && ($cpu < 100))
+                            {
+                                echo '
+                                <form method="POST" action="cpudown.php">
+                                <input type="hidden" value="' . $row['tablecar'] . '" name="tablecar"/>
+                                <input type="submit" class="btn btn-warning btn-sm" value="'.$cpu.'%"/>
+                                </form>';
+
                             }
                             else
                             {

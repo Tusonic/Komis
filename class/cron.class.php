@@ -5,6 +5,7 @@ class cron extends database
 
     public function CronOtomoto($id,$tablecar)
     {
+
         echo '</br> CronOtomoto </br>';
              
         error_reporting(E_ALL); //DOM error
@@ -33,6 +34,25 @@ class cron extends database
                 $stmt->closeCursor();
             }
         }
+        echo 'test start wykonywalny </br>';
+        if (isset($element))
+        {
+            echo 'ok';
+            $change = $this->pdo->prepare("UPDATE user SET statuslink = '4'  WHERE id = :id ");
+            $change->bindValue(':id', $id, PDO::PARAM_STR);
+            $change->execute();
+        }
+        else
+        {
+            echo 'error';
+            $change = $this->pdo->prepare("UPDATE user SET statuslink = '1'  WHERE id = :id ");
+            $change->bindValue(':id', $id, PDO::PARAM_STR);
+            $change->execute();
+        }
+        echo '</br>test end111 </br>';
+
+
+
     }
 
 
@@ -67,6 +87,9 @@ class cron extends database
             }
 
         }
+
+
+
     }
   
    public function CronOlxPremium($id,$tablecar)
