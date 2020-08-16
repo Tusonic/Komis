@@ -2,6 +2,251 @@
 
 class admin extends database
 {
+  
+   public function ChangePasswordDataExecute()
+    {    
+                $change = $this->pdo->prepare("UPDATE user SET login = :login, pass = :pass, waznosc = :waznosc WHERE id = :id ");
+                $change->bindValue(':id', $_POST['id'], PDO::PARAM_STR);
+                $change->bindValue(':login', $_POST['login'], PDO::PARAM_STR);
+                $change->bindValue(':pass', $_POST['pass'], PDO::PARAM_STR);
+                $change->bindValue(':waznosc', $_POST['waznosc'], PDO::PARAM_STR);
+                $change->execute();
+
+        echo '
+            </br>
+            <div class="row">
+            
+                <div class="col-md-3">
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="alert alert-success text-center" role="alert">
+                        <h4 class="alert-heading">System OK!</h4>
+                             <p class="text-center">Dane poprawnie wprowadzone do analizatora!</p>
+                             <p><a class="btn btn-success btn-lg btn-block" href="../index.php" role="button">OK &raquo;</a></p>
+                     </div>
+                </div>
+                    
+                <div class="col-md-3">
+                    
+                </div>
+            
+            </div>
+            ';
+    }
+  
+   public function ChangePasswordData()
+    {
+        $ChangePasswordData = $this->pdo->prepare('select * from user WHERE id = :id');
+        $ChangePasswordData->bindValue(':id', $_POST['id'], PDO::PARAM_STR);
+        $ChangePasswordData->execute();
+
+
+        echo ' 
+ 
+ <script>
+ $.extend( true, $.fn.dataTable.defaults, {
+    "searching": false,
+    "ordering": false
+} );
+ 
+ 
+$(document).ready(function() {
+    $(\'#viewtablenosort\').DataTable();
+} );
+</script>
+
+           
+             <table id="table" class="table table-striped table-bordered"  width="100%" cellspacing="0"> 
+                 <thead>
+                       <tr> 
+                             <th scope="col">#</th>
+                             <th >@</th>
+                        
+                             
+                           
+                        </tr>
+                   </thead>
+                <tbody>               
+         ';
+
+        while ($row = $ChangePasswordData->fetch(PDO::FETCH_ASSOC)) {
+          
+
+          
+
+            echo '
+            
+            <form method="POST" action="changepassworddataexecute.php">
+            
+            <input type="hidden" value="' . $row['flag'] . '" name="flag"/>
+            <input type="hidden" value="' . $row['id'] . '" name="id"/>
+            
+                <tr>
+                    <th scope="row">#</th>
+                    <th scope="row">' . $row['id'] . '</th>
+                </tr>
+
+                  
+                  <tr>
+                  <td>Login</td>
+                  <td><input  name="login" class="form-control" type="text"  value="' . $row['login'] . '"></td>
+                  </tr>
+                  
+                  <tr>
+                  <td>Password</td>
+                  <td><input  name="pass" class="form-control" type="text"  value="' . $row['pass'] . '"></td>
+                  </tr>
+                                                     
+                  <tr>
+                  <td>Ważność</td>
+                  <td><input  name="waznosc" class="form-control" type="text"  value="' . $row['waznosc'] . '"></td>
+                  </tr>
+                  
+                  ';
+          
+          
+                  if ($row['blocked'] = 0)
+                  {
+                  echo '
+                  <tr>
+                  <td>Status konta:</td>
+                  <td><button type="button" class="btn btn-sm btn-success btn-block" disabled>Analizator</button></td>
+                  </tr>
+                  ';
+                  }
+                  elseif ($row['blocked'] = 1)
+                  {
+                    echo '  
+                  <tr>
+                  <td>Status konta:</td>
+                  <td><button type="button" class="btn btn-sm btn-success btn-block" disabled>Analizator</button></td>
+                  </tr>
+                  ';
+                  }
+                  else
+                  {
+                    echo 'else';
+                  }
+                  
+
+echo'
+                  
+      '; }
+        
+              echo '
+              
+               </tbody>
+                </table>
+              
+               <div class="text-center">
+                <a class="btn btn-info " href="../index.php" role="button"><<< Anuluj</a> 
+                
+             
+               <input class="btn btn-lg btn-success" type="submit" value="Dalej >>>">
+                </div>
+        
+   
+               
+                </form>
+      
+      
+      
+      
+      ';
+   }
+  
+   public function ChangePassword()
+    {
+        $ViewUser = $this->pdo->prepare('select * from user');
+        $ViewUser->execute();
+     
+     
+
+        echo ' 
+        
+        <script>
+           $.extend( true, $.fn.dataTable.defaults, {
+              "searching": false,
+              "ordering": false
+
+          } );
+
+
+          $(document).ready(function() {
+              $(\'#viewtable\').DataTable(
+              { 
+
+              "lengthMenu": [ 10, 25, 50, 75, 100 ],
+              "scrollX": false,
+
+               "oLanguage": {
+                      "sLengthMenu": "Pokaż _MENU_ wyników",
+                      "sInfo": "Wierszy: _TOTAL_ (Wszystkich: _MAX_)",
+                      "sZeroRecords": "Brak wyników",
+                      "sInfoFiltered": "",
+                      "oPaginate": {
+                          "sNext": ">>>",
+                          "sPrevious": "<<<"
+                      }
+                  }
+              }
+              );
+          } );
+   </script>
+           
+            <table id="viewtable" class="table table-striped table-bordered" width="100%" cellspacing="0"> 
+                 <thead>
+                       <tr> 
+                             <th scope="col">#</th>
+                             <th >Login</th>
+                             <th >Hasło</th>
+                             <th >Ważność</th>
+                             <th > </th>
+                        </tr>
+                   </thead>
+                <tbody>               
+         ';
+
+        while ($row = $ViewUser->fetch(PDO::FETCH_ASSOC)) {
+            $id = $row['id'];
+            $login = $row['login'];
+            $pass = $row['pass'];
+            $flag = $row['flag'];
+            $marka = $row['marka'];
+            $model = $row['model'];
+            $cenaod = $row['cenaod'];
+            $cenado = $row['cenado'];
+            $rokod = $row['rokod'];
+            $rokdo = $row['rokdo'];
+            $paliwo = $row['paliwo'];
+            $stantechniczny = $row['stantechniczny'];
+            $skrzynia = $row['skrzynia'];
+
+            echo '
+                <tr>
+                            <th scope="row">' . $row['id'] . '</th>
+                            <td>' . $row['login'] . '</td>
+                            <td>' . $row['pass'] .' </td>
+                            <td>' . $row['waznosc'] . '</td>
+                            <td>    
+                                    <form method="POST" action="changepassworddata.php">
+                                    <input type="hidden" value="' . $row['id'] . '" name="id"/>
+                                    <input type="submit" class="btn btn-danger btn-sm btn-block" value="CHANGE"/>
+                                    </form> 
+                            </td>
+                            
+
+                                ';
+        }
+        echo '
+
+                </tr>  
+                </tbody>
+                </table>
+                            ';
+
+    }
 
 
     public function CpuDown()
@@ -87,27 +332,42 @@ class admin extends database
 
         echo ' 
  
- <script>
- $.extend( true, $.fn.dataTable.defaults, {
-    "searching": false,
-    "ordering": false
-    
-} );
- 
- 
-$(document).ready(function() {
-    $(\'#viewtablenosort\').DataTable();
-} );
-</script>
+   <script>
+           $.extend( true, $.fn.dataTable.defaults, {
+              "searching": false,
+              "ordering": false
+
+          } );
+
+
+          $(document).ready(function() {
+              $(\'#viewtable\').DataTable(
+              { 
+
+              "lengthMenu": [ 10, 25, 50, 75, 100 ],
+              "scrollX": false,
+
+               "oLanguage": {
+                      "sLengthMenu": "Pokaż _MENU_ wyników",
+                      "sInfo": "Wierszy: _TOTAL_ (Wszystkich: _MAX_)",
+                      "sZeroRecords": "Brak wyników",
+                      "sInfoFiltered": "",
+                      "oPaginate": {
+                          "sNext": ">>>",
+                          "sPrevious": "<<<"
+                      }
+                  }
+              }
+              );
+          } );
+   </script>
  
            
-            <table id="viewtablenosort" class="table table-striped table-bordered" width="100%" cellspacing="0"> 
+            <table id="viewtable" class="table table-striped table-bordered" width="100%" cellspacing="0"> 
                  <thead>
                        <tr> 
                              <th scope="col">#</th>
                              <th >Login</th>
-                             <th >Hasło</th>
-                             <th >Ważność</th>
                              <th >CPU</th>
                              <th >Status</th>
                              <th >Konto</th>
@@ -138,8 +398,6 @@ $(document).ready(function() {
                 <tr>
                             <th scope="row">' . $row['id'] . '</th>
                             <td>' . $row['login'] . '</td>
-                            <td>' . $row['pass'] . '</td>
-                            <td>' . $row['waznosc'] . '</td>
                             <td>';
                             $rowcounttable = $row['tablecar'];
                          //   echo $rowcounttable;
@@ -213,20 +471,30 @@ $(document).ready(function() {
                             echo' </td>
                             <td>
                             ';
-                                    if ($row['flag'] == 2) {
+                                    if ($row['flag'] == 2)  {
                                         echo '
-                                   <button type="button" class="btn btn-sm btn-light btn-block" disabled>Oczekuje...</button>
+                                    <form method="POST" action="changepassworddata.php">
+                                    <input type="hidden" value="' . $row['id'] . '" name="id"/>
+                                    <input type="submit" class="btn btn-secondary btn-sm btn-block" value="Oczekuje..."/>
+                                    </form>
+                                   
                                         ';
                                     }
                                     elseif ($row['blocked'] == 1)
                                     {
                                         echo '
-                                   <button type="button" class="btn btn-sm btn-primary btn-block" disabled>Zablokowane</button>
+                                   <form method="POST" action="changepassworddata.php">
+                                    <input type="hidden" value="' . $row['id'] . '" name="id"/>
+                                    <input type="submit" class="btn btn-danger btn-sm btn-block" value="Zablokowane"/>
+                                    </form>
                                         ';
 
                                     } else {
                                         echo '
-                                   <button type="button" class="btn btn-sm btn-success btn-block" disabled>Aktywne</button>
+                                    <form method="POST" action="changepassworddata.php">
+                                    <input type="hidden" value="' . $row['id'] . '" name="id"/>
+                                    <input type="submit" class="btn btn-success btn-sm btn-block" value="Aktywne"/>
+                                    </form>
                                         ';
 
                                     }
@@ -238,7 +506,7 @@ $(document).ready(function() {
                                     if ($row['flag'] == 0)
                                     {
                                         echo '
-                                    <form method="POST" action="change.php">
+                                    <form method="POST" action="viewchange.php">
                                     <input type="hidden" value="' . $row['id'] . '" name="id"/>
                                     <input type="submit" class="btn btn-success btn-sm btn-block" value="OK"/>
                                     </form>
@@ -247,16 +515,16 @@ $(document).ready(function() {
                                     elseif (($row['flag'] == 2) )
                                     {
                                       echo '
-                                    <form method="POST" action="change.php">
+                                    <form method="POST" action="viewchange.php">
                                     <input type="hidden" value="' . $row['id'] . '" name="id"/>
-                                    <input type="submit" class="btn btn-light btn-sm btn-block" value="Oczekuje..."/>
+                                    <input type="submit" class="btn btn-secondary btn-sm btn-block" value="Oczekuje..."/>
                                     </form>
                                         ';
                                     }
                                     else
                                     {
                                         echo '
-                                    <form method="POST" action="change.php">
+                                    <form method="POST" action="viewchange.php">
                                     <input type="hidden" value="' . $row['id'] . '" name="id"/>
                                     <input type="submit" class="btn btn-danger btn-sm btn-block" value="CHANGE"/>
                                     </form>
@@ -287,21 +555,39 @@ $(document).ready(function() {
 
         echo ' 
  
- <script>
- $.extend( true, $.fn.dataTable.defaults, {
-    "searching": false,
-    "ordering": false
-    
-} );
- 
- 
-$(document).ready(function() {
-    $(\'#viewtablenosort\').DataTable();
-} );
+<script>
+           $.extend( true, $.fn.dataTable.defaults, {
+              "searching": false,
+              "ordering": false
+
+          } );
+
+
+          $(document).ready(function() {
+              $(\'#viewusertable\').DataTable(
+              { 
+
+              "lengthMenu": [ 10, 25, 50, 75, 100 ],
+              "scrollX": false,
+              
+
+               "oLanguage": {
+                      "sLengthMenu": "Pokaż _MENU_ wyników",
+                      "sInfo": "Wierszy: _TOTAL_ (Wszystkich: _MAX_)",
+                      "sZeroRecords": "Brak wyników",
+                      "sInfoFiltered": "",
+                      "oPaginate": {
+                          "sNext": ">>>",
+                          "sPrevious": "<<<"
+                      }
+                  }
+              }
+              );
+          } );
 </script>
- 
-           
-            <table id="viewtablenosort" class="table table-striped table-bordered" width="100%" cellspacing="0"> 
+   
+  
+            <table id="viewusertable" class="table table-striped table-bordered" width="100%" cellspacing="0"> 
                  <thead>
                        <tr> 
                              <th scope="col">#</th>
@@ -339,7 +625,7 @@ $(document).ready(function() {
             if ($row['flag'] == 0)
             {
                 echo '
-                                    <form method="POST" action="change.php">
+                                    <form method="POST" action="viewchange.php">
                                     <input type="hidden" value="' . $row['id'] . '" name="id"/>
                                     <input type="submit" class="btn btn-success btn-sm btn-block" value="OK"/>
                                     </form>
@@ -348,7 +634,7 @@ $(document).ready(function() {
             elseif (($row['flag'] == 2) )
             {
                 echo '
-                                    <form method="POST" action="change.php">
+                                    <form method="POST" action="viewchange.php">
                                     <input type="hidden" value="' . $row['id'] . '" name="id"/>
                                     <input type="submit" class="btn btn-light btn-sm btn-block" value="Oczekuje..."/>
                                     </form>
@@ -357,7 +643,7 @@ $(document).ready(function() {
             else
             {
                 echo '
-                                    <form method="POST" action="change.php">
+                                    <form method="POST" action="viewchange.php">
                                     <input type="hidden" value="' . $row['id'] . '" name="id"/>
                                     <input type="submit" class="btn btn-danger btn-sm btn-block" value="CHANGE"/>
                                     </form>
@@ -1027,11 +1313,7 @@ $(document).ready(function() {
                 </br>
                 </br>
                  
-                 
-               
-                 
-                 
-                 
+
                 ';
 
         }

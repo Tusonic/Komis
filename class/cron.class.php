@@ -5,7 +5,11 @@ class cron extends database
 
     public function CronOtomoto($id,$tablecar)
     {
-
+        
+        $change = $this->pdo->prepare("UPDATE user SET statuslink = '1'  WHERE id = :id ");
+        $change->bindValue(':id', $id, PDO::PARAM_STR);
+        $change->execute();
+      
         echo '</br> CronOtomoto </br>';
              
         error_reporting(E_ALL); //DOM error

@@ -6,8 +6,8 @@ ob_start();
 session_start();
 
 // sekcja 1 - cron // 
-$car = 'car35';
-$idcar = 35;
+$car = 'car34';
+$idcar = 34;
 
 echo $idcar;
   echo $car;

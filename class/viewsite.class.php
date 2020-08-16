@@ -399,7 +399,7 @@ class viewsite extends database  {
         <p></p>
         <p><a class="btn btn-success btn-lg btn-block" href="admin\view.php" role="button">Analizator &raquo;</a></p>
         <p><a class="btn btn-success btn-lg btn-block" href="admin\viewuser.php" role="button">Widok &raquo;</a></p>
-        <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button">Ustawienia&raquo;</a></p>
+        <p><a class="btn btn-success btn-lg btn-block" href="admin\changepassword.php" role="button">Ustawienia&raquo;</a></p>
         <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button" aria-disabled="true">Zgłoszenia &raquo;</a></p>
 
     </div>

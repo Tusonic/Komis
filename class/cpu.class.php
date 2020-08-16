@@ -43,15 +43,35 @@ class cpu extends database
         $CPU->execute();
         $CPUinfo = $CPU->fetchColumn();
         echo 'Obciążenie serwera ';
-        $CPUkomis = $CPUinfo * 0.01;
+        $CPUkomis = $CPUinfo * 0.009;
        // echo $CPUkomis;
      //   echo '%';
 
+      
+      if (($CPUkomis > 70) && ($CPUkomis < 100)) 
+      {
         echo '
         <div class="progress" style="height: 30px;">
-            <div class="progress-bar" role="progressbar" style="width: '.$CPUkomis.'%;" aria-valuenow="'.$CPUkomis.'" aria-valuemin="0" aria-valuemax="100">'.$CPUkomis.'%</div>
+        <div class="progress-bar bg-warning" role="progressbar" style="width: '.$CPUkomis.'%;" aria-valuenow="'.$CPUkomis.'" aria-valuemin="0" aria-valuemax="100">'.$CPUkomis.'%</div>
         </div></br> </br>
-    ';
+         ';
+      }
+      elseif ($CPUkomis > 100)
+      {
+         echo '
+        <div class="progress" style="height: 30px;">
+        <div class="progress-bar bg-danger" role="progressbar" style="width: '.$CPUkomis.'%;" aria-valuenow="'.$CPUkomis.'" aria-valuemin="0" aria-valuemax="100">'.$CPUkomis.'%</div>
+        </div></br> </br>
+         ';
+      }
+      else
+      {
+         echo '
+        <div class="progress" style="height: 30px;">
+        <div class="progress-bar bg-info" role="progressbar" style="width: '.$CPUkomis.'%;" aria-valuenow="'.$CPUkomis.'" aria-valuemin="0" aria-valuemax="100">'.$CPUkomis.'%</div>
+        </div></br> </br>
+         ';
+      }
 
 
     }

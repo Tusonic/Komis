@@ -248,7 +248,7 @@ class car extends database
                   
                   <tr>
                   <td>Model:</td>
-                  <td><input  name="model" class="form-control" type="text"  value=" ' . $_SESSION['model'] . ' "></td>
+                  <td><input  name="model" class="form-control" type="text"  value="' . $_SESSION['model'] . ' "></td>
                   </tr>
                   
                   <tr>

@@ -1,0 +1,29 @@
+<script>
+           $.extend( true, $.fn.dataTable.defaults, {
+              "searching": false,
+              "ordering": false
+
+          } );
+
+
+          $(document).ready(function() {
+              $(\'#viewtable\').DataTable(
+              { 
+
+              "lengthMenu": [ 10, 25, 50, 75, 100 ],
+              "scrollX": false,
+
+               "oLanguage": {
+                      "sLengthMenu": "Pokaż _MENU_ wyników",
+                      "sInfo": "Wierszy: _TOTAL_ (Wszystkich: _MAX_)",
+                      "sZeroRecords": "Brak wyników",
+                      "sInfoFiltered": "",
+                      "oPaginate": {
+                          "sNext": ">>>",
+                          "sPrevious": "<<<"
+                      }
+                  }
+              }
+              );
+          } );
+   </script>
