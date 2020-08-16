@@ -43,7 +43,7 @@ class cpu extends database
         $CPU->execute();
         $CPUinfo = $CPU->fetchColumn();
         echo 'Obciążenie serwera ';
-        $CPUkomis = $CPUinfo * 0.009;
+        $CPUkomis = $CPUinfo * 0.008;
        // echo $CPUkomis;
      //   echo '%';
 

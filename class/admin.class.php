@@ -248,7 +248,6 @@ echo'
 
     }
 
-
     public function CpuDown()
     {
 
@@ -369,6 +368,7 @@ echo'
                              <th scope="col">#</th>
                              <th >Login</th>
                              <th >CPU</th>
+                             <th >Mail</th>
                              <th >Status</th>
                              <th >Konto</th>
                              <th >Flag</th>
@@ -430,9 +430,28 @@ echo'
                             echo '%';
                             }
 
+                            echo '</td>';
 
 
-                echo '</td>
+                            echo '<td>';
+
+
+                            if ( $row['statusmail'] == 0 )
+                            {
+                                echo '<input type="submit" class="btn btn-light btn-sm btn-block" value="Oczekuje..."/>';
+                            }
+                            elseif ($row['statusmail'] == 1)
+                            {
+                                echo '<input type="submit" class="btn btn-success btn-sm btn-block" value="Aktywne"/>';
+                            }
+                            else
+                            {
+                                echo '<input type="submit" class="btn btn-danger btn-sm btn-block" value="Zablokowane"/>';
+                            }
+
+                             echo '</td>
+
+
                             <td>  
                              ';
 
@@ -475,7 +494,7 @@ echo'
                                         echo '
                                     <form method="POST" action="changepassworddata.php">
                                     <input type="hidden" value="' . $row['id'] . '" name="id"/>
-                                    <input type="submit" class="btn btn-secondary btn-sm btn-block" value="Oczekuje..."/>
+                                    <input type="submit" class="btn btn-light btn-sm btn-block" value="Oczekuje..."/>
                                     </form>
                                    
                                         ';
@@ -517,7 +536,7 @@ echo'
                                       echo '
                                     <form method="POST" action="viewchange.php">
                                     <input type="hidden" value="' . $row['id'] . '" name="id"/>
-                                    <input type="submit" class="btn btn-secondary btn-sm btn-block" value="Oczekuje..."/>
+                                    <input type="submit" class="btn btn-light btn-sm btn-block" value="Oczekuje..."/>
                                     </form>
                                         ';
                                     }
@@ -666,7 +685,6 @@ echo'
                             ';
 
     }
-
 
     public function ChangeUser()
     {
@@ -1324,8 +1342,6 @@ $(document).ready(function() {
      
 
     } // changeuser - zamkniecie
-
-
 
     } // główna class - zamkniecie
 

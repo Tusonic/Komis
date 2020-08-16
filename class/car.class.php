@@ -69,7 +69,6 @@ class car extends database
         exit;
     }
 
-
     public function DeleteData()
     {
         $tablecar = $_SESSION['tablecar'];
@@ -112,14 +111,18 @@ class car extends database
                   <p><a class="btn btn-success btn-lg btn-block" href="deletedata.php" role="button">Usuń bazę &raquo;</a></p>
                 </div>
                 
-                <div class="col-md-4">
-                  <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button">Powiadomienia S M S &raquo;</a></p>
-                  <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button">Powiadomienia EMAIL &raquo;</a></p>
+                <div class="text-center col-md-4">
+               Aktualnie podany email: <br>
+               <b>yyy.xxx@zzz.pl</b><br><br>
+                Funkcja emial jest: <b>NIEDOSTĘPNA!</b>
                 </div>
                 
-                <div class="col-md-4">
-                  <p><a class="btn btn-success btn-lg btn-block" href="options.php" role="button">Zmiana parametrów &raquo;</a></p>
-                  <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button">Ulubione oferty &raquo;</a></p>
+                <div class="text-center col-md-4">
+                  <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button">Powiadomienia EMAIL &raquo;</a></p>
+                  <p>
+                  <a class="btn btn-secondary btn-lg disabled" href="#" role="button">START &raquo;</a>
+                  <a class="btn btn-secondary btn-lg disabled" href="#" role="button">STOP &raquo;</a>
+                  </p>
                 </div>
               
              </div>
@@ -128,7 +131,6 @@ class car extends database
           ';
 
     }
-
 
     public function CarChange()
     {
@@ -744,7 +746,6 @@ class car extends database
         ';
     }
 
-
     public function View($tablecar)
 
     {
@@ -766,27 +767,44 @@ class car extends database
  <h2><p class="text-center">OFERTY</p></h2>
  
  <script>
- $.extend( true, $.fn.dataTable.defaults, {
-    "searching": false,
-    "ordering": false
-    
-} );
- 
- 
-$(document).ready(function() {
-    $(\'#viewtablenosort\').DataTable();
-} );
-</script>
+           $.extend( true, $.fn.dataTable.defaults, {
+              "searching": false,
+              "ordering": false
+
+          } );
+
+
+          $(document).ready(function() {
+              $(\'#viewtable\').DataTable(
+              { 
+
+              "lengthMenu": [ 10, 25, 50, 75, 100 ],
+              "scrollX": false,
+
+               "oLanguage": {
+                      "sLengthMenu": "Pokaż _MENU_ wyników",
+                      "sInfo": "Wierszy: _TOTAL_ (Wszystkich: _MAX_)",
+                      "sZeroRecords": "Brak wyników",
+                      "sInfoFiltered": "",
+                      "oPaginate": {
+                          "sNext": ">>>",
+                          "sPrevious": "<<<"
+                      }
+                  }
+              }
+              );
+          } );
+   </script>
  
            
-            <table id="viewtablenosort" class="table table-striped table-bordered" width="100%" cellspacing="0"> 
+            <table id="viewtable" class="table table-striped table-bordered" width="100%" cellspacing="0"> 
                  <thead>
                        <tr> 
                              <th scope="col">#</th>
                              <th >Data</th>
                              <th >Adres WWW</th>
                              <th >Link</th>
-                             <th> </th>
+                             <th >Fav </th>
                         </tr>
                    </thead>
                 <tbody>               
@@ -803,7 +821,7 @@ $(document).ready(function() {
                 <tr>
                             <th scope="row">' . $id . '</th>
                             <td>' . $time . '</td>
-                            <td>' . $link . '</td>
+                            <td>'. $link .'</td>
                             <td> <a target="_blank" href="' . $link . '" class="btn btn-primary btn-sm" role="button" aria-pressed="true">LINK</a> </td>
                             <td> 
                             ';
@@ -868,21 +886,38 @@ $(document).ready(function() {
         echo ' 
  <h2><p class="text-center">ULUBIONE OFERTY</p></h2>
  
- <script>
- $.extend( true, $.fn.dataTable.defaults, {
-    "searching": false,
-    "ordering": false
-    
-} );
- 
- 
-$(document).ready(function() {
-    $(\'#viewtablenosort\').DataTable();
-} );
-</script>
+<script>
+           $.extend( true, $.fn.dataTable.defaults, {
+              "searching": false,
+              "ordering": false
+
+          } );
+
+
+          $(document).ready(function() {
+              $(\'#viewtablefav\').DataTable(
+              { 
+
+              "lengthMenu": [ 10, 25, 50, 75, 100 ],
+              "scrollX": false,
+
+               "oLanguage": {
+                      "sLengthMenu": "Pokaż _MENU_ wyników",
+                      "sInfo": "Wierszy: _TOTAL_ (Wszystkich: _MAX_)",
+                      "sZeroRecords": "Brak wyników",
+                      "sInfoFiltered": "",
+                      "oPaginate": {
+                          "sNext": ">>>",
+                          "sPrevious": "<<<"
+                      }
+                  }
+              }
+              );
+          } );
+   </script>
  
            
-            <table id="viewtablenosort" class="table table-striped table-bordered" width="100%" cellspacing="0"> 
+            <table id="viewtablefav" class="table table-striped table-bordered" width="100%" cellspacing="0"> 
                  <thead>
                        <tr> 
                              <th scope="col">#</th>
@@ -924,11 +959,6 @@ $(document).ready(function() {
 
 
     }
-
-
-
-
-
 
 }
 

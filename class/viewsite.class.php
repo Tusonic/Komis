@@ -186,6 +186,7 @@ class viewsite extends database  {
                     $_SESSION['linkotomoto'] = $row['linkotomoto'];
                     $_SESSION['linkolx'] = $row['linkolx'];
                     $_SESSION['waznosc'] = $row['waznosc'];
+                    $_SESSION['statusmail'] = $row['statusmail'];
                     // odswiezenie statystyk koniec
 
                     echo '
@@ -207,13 +208,13 @@ class viewsite extends database  {
              if ($_SESSION['flag'] == 0)
              {
                  echo '
-            <p><a class="btn btn-success btn-lg btn-block" href="car/options.php" role="button">Parametry &raquo;</a></p>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/viewoptions.php" role="button">Parametry &raquo;</a></p>
                 ';
              }
              else
              {
                  echo '
-            <p><a class="btn btn-warning btn-lg btn-block" href="car/options.php" role="button">Parametry &raquo;</a></p>
+            <p><a class="btn btn-warning btn-lg btn-block" href="car/viewoptions.php" role="button">Parametry &raquo;</a></p>
                 ';
              }
 
@@ -320,13 +321,13 @@ class viewsite extends database  {
                     if ($_SESSION['flag'] == 0)
                     {
                         echo '
-            <p><a class="btn btn-success btn-lg btn-block" href="car/options.php" role="button">Parametry &raquo;</a></p>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/viewoptions.php" role="button">Parametry &raquo;</a></p>
                 ';
                     }
                     else
                     {
                         echo '
-            <p><a class="btn btn-warning btn-lg btn-block" href="car/options.php" role="button">Parametry &raquo;</a></p>
+            <p><a class="btn btn-warning btn-lg btn-block" href="car/viewoptions.php" role="button">Parametry &raquo;</a></p>
                 ';
                     }
 
