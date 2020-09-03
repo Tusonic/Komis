@@ -184,6 +184,7 @@ echo'
                       "sLengthMenu": "Pokaż _MENU_ wyników",
                       "sInfo": "Wierszy: _TOTAL_ (Wszystkich: _MAX_)",
                       "sZeroRecords": "Brak wyników",
+                      "sInfoEmpty": "",
                       "sInfoFiltered": "",
                       "oPaginate": {
                           "sNext": ">>>",
@@ -255,7 +256,7 @@ echo'
         $tablecar = $_POST['tablecar'];
 
 
-        $change = $this->pdo->prepare("DELETE FROM $tablecar ORDER BY id ASC LIMIT 65");
+        $change = $this->pdo->prepare("DELETE FROM $tablecar ORDER BY id ASC LIMIT 265");
         $change->execute();
 
         echo '

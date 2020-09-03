@@ -36,6 +36,25 @@ class cron extends database
                 $stmt->bindValue(':link', $element->href, PDO::PARAM_STR);
                 $stmt->execute();
                 $stmt->closeCursor();
+              
+               //  SYSTEM MAIL - START //
+            
+                $loadcronmail = $this->pdo->prepare('select * from user WHERE id = :id');
+                $loadcronmail->bindValue(':id', $id, PDO::PARAM_STR);
+                $loadcronmail->execute();
+                $row = $loadcronmail->fetch(PDO::FETCH_ASSOC);
+                echo $row['cronmail'];
+
+                $to      =  $row['cronmail'];
+                $subject = '- POWIADOMIENIE -';
+                $message = 'Link:  ' . $element->href;
+                $headers = 'From: powiadomienie@komis.info.pl' . "\r\n" .
+                            'Reply-To: powiadomienie@komis.info.pl' . "\r\n" .
+                            'X-Mailer: PHP/' . phpversion();
+
+                mail($to, $subject, $message, $headers);
+                $loadcronmail->closeCursor();
+                // SYSTEM MAIL - END // 
             }
         }
         echo 'test start wykonywalny </br>';
@@ -82,19 +101,44 @@ class cron extends database
 
             if ($row > 0) {
                 echo " Link - - - " . $link . " </br>";
+              
+
+              
             } else {
 
                 $stmt = $this->pdo->prepare("INSERT INTO $tablecar (link) VALUE (:link) ");
                 $stmt->bindValue(':link', $element->href, PDO::PARAM_STR);
                 $stmt->execute();
                 $stmt->closeCursor();
+              
+              
+                //  SYSTEM MAIL - START //
+            
+                $loadcronmail = $this->pdo->prepare('select * from user WHERE id = :id');
+                $loadcronmail->bindValue(':id', $id, PDO::PARAM_STR);
+                $loadcronmail->execute();
+                $row = $loadcronmail->fetch(PDO::FETCH_ASSOC);
+                echo $row['cronmail'];
+
+                $to      =  $row['cronmail'];
+                $subject = '- POWIADOMIENIE -';
+                $message = 'Link:  ' . $element->href;
+                $headers = 'From: powiadomienie@komis.info.pl' . "\r\n" .
+                            'Reply-To: powiadomienie@komis.info.pl' . "\r\n" .
+                            'X-Mailer: PHP/' . phpversion();
+
+                mail($to, $subject, $message, $headers);
+                $loadcronmail->closeCursor();
+              
+                // SYSTEM MAIL - END // 
+
+                
             }
 
         }
 
-
-
     }
+  
   
    public function CronOlxPremium($id,$tablecar)
     {
@@ -109,7 +153,9 @@ class cron extends database
         $html = file_get_html($row['linkolx']);
         foreach ($html->find('a[class="marginright5 link linkWithHash detailsLinkPromoted"]') as $element) {
             echo $element->href . '<br>';
-
+          
+            
+          
             $link = $element->href;
             $carload = $this->pdo->prepare("SELECT link FROM $tablecar WHERE link = '$link' ");
             $carload->execute();
@@ -118,12 +164,23 @@ class cron extends database
 
             if ($row > 0) {
                 echo " Link - - - " . $link . " </br>";
+
+              
             } else {
 
                 $stmt = $this->pdo->prepare("INSERT INTO $tablecar (link) VALUE (:link) ");
                 $stmt->bindValue(':link', $element->href, PDO::PARAM_STR);
                 $stmt->execute();
                 $stmt->closeCursor();
+              
+               $to      =  'tomek@tusonic.pl';
+               $subject = '- POWIADOMIENIE -';
+               $message = 'Link:  ' . $element->href;
+               $headers = 'From: powiadomienie@komis.info.pl' . "\r\n" .
+                          'Reply-To: powiadomienie@komis.info.pl' . "\r\n" .
+                          'X-Mailer: PHP/' . phpversion();
+
+               mail($to, $subject, $message, $headers);
             }
 
         }

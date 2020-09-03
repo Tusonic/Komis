@@ -186,7 +186,6 @@ class viewsite extends database  {
                     $_SESSION['linkotomoto'] = $row['linkotomoto'];
                     $_SESSION['linkolx'] = $row['linkolx'];
                     $_SESSION['waznosc'] = $row['waznosc'];
-                    $_SESSION['statusmail'] = $row['statusmail'];
                     // odswiezenie statystyk koniec
 
                     echo '
