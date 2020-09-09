@@ -57,6 +57,9 @@ class viewsite extends database  {
             $_SESSION['login_in'] = $num_rows;
             $this->_login = $num_rows;
 
+  
+          
+                // odswiezenie statystyk
             $loadinguser = $this->pdo->prepare("select * from user WHERE login = '{$_SESSION['login']}' ");
             $loadinguser->execute();
             $row = $loadinguser->fetch(PDO::FETCH_ASSOC);
@@ -77,6 +80,8 @@ class viewsite extends database  {
             $_SESSION['linkotomoto'] = $row['linkotomoto'];
             $_SESSION['linkolx'] = $row['linkolx'];
             $_SESSION['waznosc'] = $row['waznosc'];
+            $_SESSION['cronmail'] = $row['cronmail'];
+              // odswiezenie statystyk koniec
 
 
         }
@@ -165,28 +170,29 @@ class viewsite extends database  {
 
                 if ($num_access == $this->_user) {
 
-                    // odswiezenie statystyk
-                    $loadinguser = $this->pdo->prepare("select * from user WHERE login = '{$_SESSION['login']}' ");
-                    $loadinguser->execute();
-                    $row = $loadinguser->fetch(PDO::FETCH_ASSOC);
+                         // odswiezenie statystyk
+                $loadinguser = $this->pdo->prepare("select * from user WHERE login = '{$_SESSION['login']}' ");
+                $loadinguser->execute();
+                $row = $loadinguser->fetch(PDO::FETCH_ASSOC);
 
-                    $_SESSION['flag'] = $row['flag'];
-                    $_SESSION['tablecar'] = $row['tablecar'];
-                    $_SESSION['lokalizacja'] = $row['lokalizacja'];
-                    $_SESSION['dystans'] = $row['dystans'];
-                    $_SESSION['marka'] = $row['marka'];
-                    $_SESSION['model'] = $row['model'];
-                    $_SESSION['cenaod'] = $row['cenaod'];
-                    $_SESSION['cenado'] = $row['cenado'];
-                    $_SESSION['rokod'] = $row['rokod'];
-                    $_SESSION['rokdo'] = $row['rokdo'];
-                    $_SESSION['paliwo'] = $row['paliwo'];
-                    $_SESSION['stantechniczny'] = $row['stantechniczny'];
-                    $_SESSION['skrzynia'] = $row['skrzynia'];
-                    $_SESSION['linkotomoto'] = $row['linkotomoto'];
-                    $_SESSION['linkolx'] = $row['linkolx'];
-                    $_SESSION['waznosc'] = $row['waznosc'];
-                    // odswiezenie statystyk koniec
+                $_SESSION['flag'] = $row['flag'];
+                $_SESSION['tablecar'] = $row['tablecar'];
+                $_SESSION['lokalizacja'] = $row['lokalizacja'];
+                $_SESSION['dystans'] = $row['dystans'];
+                $_SESSION['marka'] = $row['marka'];
+                $_SESSION['model'] = $row['model'];
+                $_SESSION['cenaod'] = $row['cenaod'];
+                $_SESSION['cenado'] = $row['cenado'];
+                $_SESSION['rokod'] = $row['rokod'];
+                $_SESSION['rokdo'] = $row['rokdo'];
+                $_SESSION['paliwo'] = $row['paliwo'];
+                $_SESSION['stantechniczny'] = $row['stantechniczny'];
+                $_SESSION['skrzynia'] = $row['skrzynia'];
+                $_SESSION['linkotomoto'] = $row['linkotomoto'];
+                $_SESSION['linkolx'] = $row['linkolx'];
+                $_SESSION['waznosc'] = $row['waznosc'];
+                $_SESSION['cronmail'] = $row['cronmail'];
+        // odswiezenie statystyk koniec
 
                     echo '
        
@@ -234,7 +240,7 @@ class viewsite extends database  {
             <h2><p class="text-center">KONTO</p></h2>
             <p><a class="btn btn-info btn-lg btn-block" href="logout.php" role="button">Wyloguj &raquo;</a></p>
             <br>
-            <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button" aria-disabled="true">Ustawienia &raquo;</a></p>
+            <p><a class="btn btn-success btn-lg btn-block" href="car/optionsaccount.php" role="button" aria-disabled="true">Ustawienia &raquo;</a></p>
             <p><a class="btn btn-secondary btn-lg btn-block disabled" href="#" role="button" aria-disabled="true">Płatności &raquo;</a></p>
         </div>
         
@@ -278,27 +284,29 @@ class viewsite extends database  {
                 // START ACCESS MODERATOR
                 if ($num_access == $this->_moderator) {
                   
-                    // odswiezenie statystyk
-                    $loadinguser = $this->pdo->prepare("select * from user WHERE login = '{$_SESSION['login']}' ");
-                    $loadinguser->execute();
-                    $row = $loadinguser->fetch(PDO::FETCH_ASSOC);
+                          // odswiezenie statystyk
+                      $loadinguser = $this->pdo->prepare("select * from user WHERE login = '{$_SESSION['login']}' ");
+                      $loadinguser->execute();
+                      $row = $loadinguser->fetch(PDO::FETCH_ASSOC);
 
-                    $_SESSION['flag'] = $row['flag'];
-                    $_SESSION['tablecar'] = $row['tablecar'];
-                    $_SESSION['lokalizacja'] = $row['lokalizacja'];
-                    $_SESSION['dystans'] = $row['dystans'];
-                    $_SESSION['marka'] = $row['marka'];
-                    $_SESSION['model'] = $row['model'];
-                    $_SESSION['cenaod'] = $row['cenaod'];
-                    $_SESSION['cenado'] = $row['cenado'];
-                    $_SESSION['rokod'] = $row['rokod'];
-                    $_SESSION['rokdo'] = $row['rokdo'];
-                    $_SESSION['paliwo'] = $row['paliwo'];
-                    $_SESSION['stantechniczny'] = $row['stantechniczny'];
-                    $_SESSION['skrzynia'] = $row['skrzynia'];
-                    $_SESSION['linkotomoto'] = $row['linkotomoto'];
-                    $_SESSION['linkolx'] = $row['linkolx'];
-                    // odswiezenie statystyk koniec
+                      $_SESSION['flag'] = $row['flag'];
+                      $_SESSION['tablecar'] = $row['tablecar'];
+                      $_SESSION['lokalizacja'] = $row['lokalizacja'];
+                      $_SESSION['dystans'] = $row['dystans'];
+                      $_SESSION['marka'] = $row['marka'];
+                      $_SESSION['model'] = $row['model'];
+                      $_SESSION['cenaod'] = $row['cenaod'];
+                      $_SESSION['cenado'] = $row['cenado'];
+                      $_SESSION['rokod'] = $row['rokod'];
+                      $_SESSION['rokdo'] = $row['rokdo'];
+                      $_SESSION['paliwo'] = $row['paliwo'];
+                      $_SESSION['stantechniczny'] = $row['stantechniczny'];
+                      $_SESSION['skrzynia'] = $row['skrzynia'];
+                      $_SESSION['linkotomoto'] = $row['linkotomoto'];
+                      $_SESSION['linkolx'] = $row['linkolx'];
+                      $_SESSION['waznosc'] = $row['waznosc'];
+                      $_SESSION['cronmail'] = $row['cronmail'];
+                        // odswiezenie statystyk koniec
 
 
                     echo '
@@ -362,28 +370,29 @@ class viewsite extends database  {
                 // START ACCESS USER
                 if ($num_access == $this->_adminstrator) {
                   
-                    // odswiezenie statystyk
-                    $loadinguser = $this->pdo->prepare("select * from user WHERE login = '{$_SESSION['login']}' ");
-                    $loadinguser->execute();
-                    $row = $loadinguser->fetch(PDO::FETCH_ASSOC);
+                          // odswiezenie statystyk
+                        $loadinguser = $this->pdo->prepare("select * from user WHERE login = '{$_SESSION['login']}' ");
+                        $loadinguser->execute();
+                        $row = $loadinguser->fetch(PDO::FETCH_ASSOC);
 
-                    $_SESSION['flag'] = $row['flag'];
-                    $_SESSION['tablecar'] = $row['tablecar'];
-                    $_SESSION['lokalizacja'] = $row['lokalizacja'];
-                    $_SESSION['dystans'] = $row['dystans'];
-                    $_SESSION['marka'] = $row['marka'];
-                    $_SESSION['model'] = $row['model'];
-                    $_SESSION['cenaod'] = $row['cenaod'];
-                    $_SESSION['cenado'] = $row['cenado'];
-                    $_SESSION['rokod'] = $row['rokod'];
-                    $_SESSION['rokdo'] = $row['rokdo'];
-                    $_SESSION['paliwo'] = $row['paliwo'];
-                    $_SESSION['stantechniczny'] = $row['stantechniczny'];
-                    $_SESSION['skrzynia'] = $row['skrzynia'];
-                    $_SESSION['linkotomoto'] = $row['linkotomoto'];
-                    $_SESSION['linkolx'] = $row['linkolx'];
-                    $_SESSION['waznosc'] = $row['waznosc'];
-                    // odswiezenie statystyk koniec
+                        $_SESSION['flag'] = $row['flag'];
+                        $_SESSION['tablecar'] = $row['tablecar'];
+                        $_SESSION['lokalizacja'] = $row['lokalizacja'];
+                        $_SESSION['dystans'] = $row['dystans'];
+                        $_SESSION['marka'] = $row['marka'];
+                        $_SESSION['model'] = $row['model'];
+                        $_SESSION['cenaod'] = $row['cenaod'];
+                        $_SESSION['cenado'] = $row['cenado'];
+                        $_SESSION['rokod'] = $row['rokod'];
+                        $_SESSION['rokdo'] = $row['rokdo'];
+                        $_SESSION['paliwo'] = $row['paliwo'];
+                        $_SESSION['stantechniczny'] = $row['stantechniczny'];
+                        $_SESSION['skrzynia'] = $row['skrzynia'];
+                        $_SESSION['linkotomoto'] = $row['linkotomoto'];
+                        $_SESSION['linkolx'] = $row['linkolx'];
+                        $_SESSION['waznosc'] = $row['waznosc'];
+                        $_SESSION['cronmail'] = $row['cronmail'];
+                          // odswiezenie statystyk koniec
 
 
                     echo '

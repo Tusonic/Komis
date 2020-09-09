@@ -103,6 +103,8 @@ class car extends database
 
     public function Info()
     {
+      
+      
         echo '</br>
             <div class="row">
 
@@ -113,8 +115,8 @@ class car extends database
                 
                 <div class="text-center col-md-4">
                Aktualnie podany email: <br>
-               <b>yyy.xxx@zzz.pl</b><br><br>
-                Funkcja emial jest: <b>NIEDOSTĘPNA!</b>
+               <b>'.$_SESSION['cronmail'].'</b><br><br>
+                Funkcja emial jest: <b>DOSTĘPNA!</b>
                 </div>
                 
                 <div class="text-center col-md-4">
@@ -211,6 +213,7 @@ class car extends database
         $_SESSION['linkotomoto'] = $row['linkotomoto'];
         $_SESSION['linkolx'] = $row['linkolx'];
         $_SESSION['waznosc'] = $row['waznosc'];
+        $_SESSION['cronmail'] = $row['cronmail'];
         // odswiezenie statystyk koniec
     }
 
@@ -957,6 +960,94 @@ class car extends database
         
                </table>';
 
+
+    }
+  
+  
+   public function OptionsAccount()
+    {
+     
+     if(isset($_POST['email']))
+     {
+        $emialupdate = $this->pdo->prepare("UPDATE user SET cronmail = :cronmail WHERE login = :login");
+        $emialupdate->bindValue(':login', $_SESSION['login'], PDO::PARAM_STR);
+        $emialupdate->bindValue(':cronmail', $_POST['email'], PDO::PARAM_STR);
+        $emialupdate->execute();
+        $_SESSION['cronmail'] = $_POST['email'];
+       echo '<div class="alert alert-success text-center" role="alert">
+                  NOWY MAIL ZOSTAŁ DODANY
+                </div>';
+     }
+     else
+     {
+       
+     }
+     
+        echo '
+
+<div class="row"> 
+
+         <div class="col-md-4">
+         
+         <form method="POST" action="optionsaccount.php">
+         
+              <h2><p class="text-center">EMAIL</p></h2>
+
+              <div class="form-group row">
+                <label for="staticEmail" class="col-sm-3 col-form-label">Aktualny: </label>
+                <div class="col-sm-9">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="' . $_SESSION['cronmail'] . '">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputPassword" class="col-sm-3 col-form-label">Nowy: </label>
+                <div class="col-sm-9">
+                 <input type="text" class="form-control" value="'.$_SESSION['cronmail'].'" name="email">
+                </div>
+              </div>
+              <div class="text-center">
+              <input class="btn btn-success" type="submit" value="Zapisz zmiany >>>">
+              </div>
+              
+              </form>
+         
+         </div>   
+         
+            <div class="col-md-4"> 
+            
+             <h2><p class="text-center">USTAWIENIA</p></h2> 
+             <p class="text-center">KONTO: <b>AKTYWNE</b></p>
+             <p class="text-center">EMAIL: <b>AKTYWNY</b></p>
+             <p class="text-center">WAŻNE DO: <b>BRAK LIMITÓW</b></p>
+            
+            </div> 
+            
+            
+            
+                 <div class="col-md-4">
+                 
+                 
+              <h2><p class="text-center">HASŁO</p></h2>
+
+              <div class="form-group row">
+                <label for="inputPassword" class="col-sm-3 col-form-label">Nowe: </label>
+                <div class="col-sm-9">
+                 <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+               <div class="form-group row">
+                <label for="inputPassword" class="col-sm-3 col-form-label">Powtórz: </label>
+                <div class="col-sm-9">
+                 <input type="text" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="text-center">
+              <input class="btn btn-success disabled" type="submit" value="Zapisz zmiany >>>">
+              </div>
+         
+                 
+                 </div>
+                  ';
 
     }
 
