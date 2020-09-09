@@ -173,7 +173,7 @@ class cron extends database
                 $stmt->execute();
                 $stmt->closeCursor();
               
-               $to      =  'tomek@tusonic.pl';
+               $to      =  $row['cronmail'];
                $subject = '- POWIADOMIENIE -';
                $message = 'Link:  ' . $element->href;
                $headers = 'From: powiadomienie@komis.info.pl' . "\r\n" .
